@@ -13,7 +13,7 @@
 #import <DBGHTMLEntities/DBGHTMLEntityDecoder.h>
 
 
-@interface Stack_Exchange_NotifierAppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate> {
+@interface Stack_Exchange_NotifierAppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate, WebFrameLoadDelegate> {
     NSWindow *__unsafe_unretained window;
     // Timer for periodically updating the menu ("checked n minutes ago")
     NSTimer *menuUpdateTimer;

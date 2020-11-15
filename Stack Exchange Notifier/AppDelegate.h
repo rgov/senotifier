@@ -1,5 +1,5 @@
 //
-//  Stack_Exchange_NotifierAppDelegate.h
+//  AppDelegate.h
 //  Stack Exchange Notifier
 //
 //  Created by Greg Hewgill on 28/01/12.
@@ -17,8 +17,6 @@
     
     // Timer for checking the inbox every 5 minutes
     NSTimer *checkInboxTimer;
-    // The menu attached to the status bar item
-    NSMenu *menu;
     // The status bar item itself (nil if it's currently hidden)
     NSStatusItem *statusItem;
     // Web view used to log in to the web site
@@ -49,5 +47,25 @@
 }
 
 @property (strong) IBOutlet NSWindow *window;
+
+@property (strong) IBOutlet NSMenu *menu;
+@property (weak) IBOutlet NSMenuItem *noUnreadMessagesMenuItem;
+@property (weak) IBOutlet NSMenuItem *lastCheckMenuItem;
+@property (weak) IBOutlet NSMenuItem *loggedInAsMenuItem;
+@property (weak) IBOutlet NSMenuItem *loginMenuItem;
+@property (weak) IBOutlet NSMenuItem *logoutMenuItem;
+@property (weak) IBOutlet NSMenuItem *lastUpdateCheckMenuItem;
+@property (weak) IBOutlet NSMenuItem *automatedUpdateChecksMenuItem;
+@property (weak) IBOutlet NSMenuItem *startAtLoginMenuItem;
+
+- (IBAction)selectMessage:(id)sender;
+- (IBAction)checkForMessages:(id)sender;
+- (IBAction)login:(id)sender;
+- (IBAction)logout:(id)sender;
+- (IBAction)showAbout:(id)sender;
+- (IBAction)checkForUpdates:(id)sender;
+- (IBAction)configureAutomatedUpdateChecks:(id)sender;
+- (IBAction)startAtLogin:(id)sender;
+- (IBAction)quit:(id)sender;
 
 @end

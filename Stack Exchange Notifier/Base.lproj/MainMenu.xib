@@ -12,7 +12,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <menu title="AMainMenu" systemMenu="main" id="29">
             <items>
                 <menuItem title="Stack Exchange Notifier" id="56">
@@ -647,7 +647,7 @@
                     </menu>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="-27" y="3"/>
+            <point key="canvasLocation" x="-105" y="26"/>
         </menu>
         <window title="Stack Exchange Notifier" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="371">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
@@ -658,10 +658,104 @@
                 <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
                 <autoresizingMask key="autoresizingMask"/>
             </view>
-            <point key="canvasLocation" x="-27" y="281"/>
+            <point key="canvasLocation" x="-121" y="296"/>
         </window>
+        <menu title="Stack Exchange Notifier" id="Aqm-bV-5ZG">
+            <items>
+                <menuItem title="No unread messages" hidden="YES" enabled="NO" id="iN6-Uw-3bz">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Some unread message" id="QpD-Ez-bMN">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="selectMessage:" target="494" id="DJN-HD-Puv"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" hidden="YES" id="O4Q-zA-lmw"/>
+                <menuItem title="Last check: Never" hidden="YES" enabled="NO" id="XAr-6x-vT9">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Check now" hidden="YES" id="n1W-UV-xYG">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="checkForMessages:" target="494" id="1t6-as-0CI"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="iQF-IP-1Vm"/>
+                <menuItem title="Logged in as User" hidden="YES" enabled="NO" id="q2Z-Ks-aiO">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                </menuItem>
+                <menuItem title="Log in" id="sr0-Jh-vLL">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="login:" target="494" id="lWk-W9-Y6A"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Log out" hidden="YES" id="buY-KN-cGI">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="logout:" target="494" id="4q9-PJ-8YO"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="95j-7n-Oqq"/>
+                <menuItem title="About" id="VLg-Bd-2oj">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showAbout:" target="494" id="7CE-nl-t8a"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Preferences" id="PGS-cm-hRm">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Preferences" id="8P5-zS-lut">
+                        <items>
+                            <menuItem title="Last update check: Never" enabled="NO" id="BXO-MR-LOk">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                            </menuItem>
+                            <menuItem title="Check for updates now" id="ypa-1u-sPh">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="checkForUpdates:" target="494" id="cYN-kF-nbi"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Check for updates automatically" id="xag-GU-qTQ">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="configureAutomatedUpdateChecks:" target="494" id="L5W-yr-Der"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="6e3-Wi-kKV"/>
+                            <menuItem title="Start at login" id="q3H-2C-RQf">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="startAtLogin:" target="494" id="tTy-fr-2vs"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Quit" id="X4i-n8-c5U">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="quit:" target="494" id="sRM-v1-4zG"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <connections>
+                <outlet property="delegate" destination="494" id="2tr-ob-A5S"/>
+            </connections>
+            <point key="canvasLocation" x="256" y="204"/>
+        </menu>
         <customObject id="494" customClass="AppDelegate">
             <connections>
+                <outlet property="automatedUpdateChecksMenuItem" destination="xag-GU-qTQ" id="eAN-Ut-7G3"/>
+                <outlet property="lastCheckMenuItem" destination="XAr-6x-vT9" id="aa1-FQ-9wB"/>
+                <outlet property="lastUpdateCheckMenuItem" destination="BXO-MR-LOk" id="zIg-h2-z4u"/>
+                <outlet property="loggedInAsMenuItem" destination="q2Z-Ks-aiO" id="QAJ-kE-Enc"/>
+                <outlet property="loginMenuitem" destination="sr0-Jh-vLL" id="oLh-be-yno"/>
+                <outlet property="logoutMenuItem" destination="buY-KN-cGI" id="Fjb-53-fPc"/>
+                <outlet property="menu" destination="Aqm-bV-5ZG" id="pxJ-mX-02f"/>
+                <outlet property="noUnreadMessagesMenuitem" destination="iN6-Uw-3bz" id="s1p-26-eZm"/>
+                <outlet property="startAtLoginMenuItem" destination="q3H-2C-RQf" id="RFu-Y2-pu2"/>
                 <outlet property="window" destination="371" id="532"/>
             </connections>
         </customObject>

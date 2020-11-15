@@ -1,5 +1,5 @@
 //
-//  Stack_Exchange_NotifierAppDelegate.m
+//  AppDelegate.m
 //  Stack Exchange Notifier
 //
 //  Created by Greg Hewgill on 28/01/12.
@@ -91,6 +91,10 @@ NSString *timeAgo(time_t t)
 
 @end
 
+
+// MARK: -
+// MARK: Start at Login management
+
 /*
  * These two functions are based on
  * http://stackoverflow.com/questions/815063/how-do-you-make-your-app-open-at-login
@@ -162,6 +166,9 @@ static void setStartAtLogin(BOOL enabled)
     }
 }
 
+// MARK: -
+
+
 // Create the status item when needed. Called on program startup or
 // when the icon is unhidden.
 NSStatusItem *createStatusItem(NSImage* icon)
@@ -188,16 +195,21 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     menuitem.attributedTitle = title;
 }
 
-@implementation AppDelegate {
-    SUUpdater *sparkleUpdater;
-}
+@implementation AppDelegate
 
+// MARK: -
+// MARK: NSMenuDelegate methods
 
 // Called just before the menu opens to show the
 // amount of time since the last check. Also shows error messages
 // if available.
 -(void)menuWillOpen:(NSMenu *)menu;
 {
+    // Update "Check for Update Automatically" menu state
+    self.automatedUpdateChecksMenuItem.state =
+        SUUpdater.sharedUpdater.automaticallyChecksForUpdates ?
+        NSControlStateValueOn : NSControlStateValueOff;
+    
     NSDictionary *normalattrs = @{
         NSFontAttributeName: [NSFont menuBarFontOfSize:0.0],
     };
@@ -237,6 +249,7 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 // the menu that needs to change, but this works fine.
 -(void)resetMenu
 {
+#if 0
     menu = [[NSMenu alloc] initWithTitle:@""];
     menu.delegate = self;
     
@@ -290,6 +303,10 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     check_updates.target = sparkleUpdater;
     [menu addItem:check_updates];
     [menu addItem:[[NSMenuItem alloc] initWithTitle:@"Quit" action:@selector(quit) keyEquivalent:@""]];
+#endif
+
+    // DEBUG
+    int unread = 0;
     
     if (statusItem != nil) {
         // if there are any unread items, display that number on the status bar
@@ -302,7 +319,7 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
             statusItem.button.image = inactiveIcon;
             statusItem.button.alternateImage = inactiveIconAlt;
         }
-        statusItem.menu = menu;
+        statusItem.menu = self.menu;
     }
 }
 
@@ -319,12 +336,9 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     [[web mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://stackexchange.com/oauth/dialog?client_id=81&scope=read_inbox,no_expiry&redirect_uri=https://stackexchange.com/oauth/login_success"]]];
 }
 
-- (void)applicationWillFinishLaunching:(NSNotification *)notification
-{
-    sparkleUpdater = [SUUpdater sharedUpdater];
-}
+// MARK: -
+// MARK: NSApplicationDelegate methods
 
-// Initialise the application.
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     lastCheck = 0;
@@ -357,19 +371,10 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     NSUserNotificationCenter.defaultUserNotificationCenter.delegate = self;
 
     // kick off a login procedure
-    [self doLogin];
+    [self login:self];
 
     // set up the timer
     checkInboxTimer = [NSTimer scheduledTimerWithTimeInterval:300 target:self selector:@selector(checkInbox) userInfo:nil repeats:YES];
-}
-
-// Show a standard About panel.
--(void)showAbout
-{
-    [NSApp activateIgnoringOtherApps:YES];
-    [NSApp orderFrontStandardAboutPanelWithOptions:@{
-        @"Version": @""
-    }];
 }
 
 // Check for new inbox items on the server.
@@ -422,12 +427,6 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
           NSLog(@"Invalidated login token.");
         }
     }] resume];
-}
-
-// Arrivederci.
--(void)quit
-{
-    [NSApp terminate:self];
 }
 
 // Called from the WebView when there is an error of some kind
@@ -509,7 +508,7 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
         // only auto-login if we got an expired access token (which is expected)
         if ([lastCheckError compare:@"invalid_access_token"] == NSOrderedSame
          && [(NSString *)r[@"error_message"] compare:@"expired"] == NSOrderedSame) {
-            [self doLogin];
+            [self login:self];
         }
         return;
     }
@@ -607,6 +606,55 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 {
     setStartAtLogin(!willStartAtLogin());
     [self resetMenu];
+}
+
+// MARK: -
+// MARK: Menu item actions
+
+- (IBAction)selectMessage:(id)sender {
+    // Not implemented yet.
+}
+
+- (IBAction)checkForMessages:(id)sender {
+    [self checkInbox];
+}
+
+- (IBAction)login:(id)sender {
+    [self doLogin];
+}
+
+- (IBAction)logout:(id)sender {
+    [self invalidate];
+}
+
+- (IBAction)showAbout:(id)sender {
+    // Show the standard About window
+    [NSApp activateIgnoringOtherApps:YES];
+    [NSApp orderFrontStandardAboutPanel:self];
+}
+
+- (IBAction)checkForUpdates:(id)sender {
+    [SUUpdater.sharedUpdater checkForUpdates:self];
+}
+
+- (IBAction)configureAutomatedUpdateChecks:(id)sender {
+    if (self.automatedUpdateChecksMenuItem.state == NSControlStateValueOff) {
+        SUUpdater.sharedUpdater.automaticallyChecksForUpdates = YES;
+    } else {
+        SUUpdater.sharedUpdater.automaticallyChecksForUpdates = NO;
+    }
+}
+
+- (IBAction)startAtLogin:(id)sender {
+    if (self.startAtLoginMenuItem.state == NSControlStateValueOff) {
+        self.startAtLoginMenuItem.state = NSControlStateValueOn;
+    } else {
+        self.startAtLoginMenuItem.state = NSControlStateValueOff;
+    }
+}
+
+- (IBAction)quit:(id)sender {
+    [NSApp terminate:self];
 }
 
 @end

@@ -62,7 +62,6 @@
 		3735B1C414D3CF94002B0428 /* Stack Exchange Notifier-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Stack Exchange Notifier-Info.plist"; sourceTree = "<group>"; };
 		3735B1C614D3CF94002B0428 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3735B1C814D3CF94002B0428 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		3735B1CA14D3CF95002B0428 /* Stack Exchange Notifier-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Stack Exchange Notifier-Prefix.pch"; sourceTree = "<group>"; };
 		3735B1CE14D3CF95002B0428 /* Stack_Exchange_NotifierAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Stack_Exchange_NotifierAppDelegate.h; sourceTree = "<group>"; };
 		3735B1CF14D3CF95002B0428 /* Stack_Exchange_NotifierAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Stack_Exchange_NotifierAppDelegate.m; sourceTree = "<group>"; };
 		3735B1F114D4B57A002B0428 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -146,7 +145,6 @@
 				3735B1C414D3CF94002B0428 /* Stack Exchange Notifier-Info.plist */,
 				3735B1C514D3CF94002B0428 /* InfoPlist.strings */,
 				3735B1C814D3CF94002B0428 /* main.m */,
-				3735B1CA14D3CF95002B0428 /* Stack Exchange Notifier-Prefix.pch */,
 				37F9D60114DA7D2300DA4B70 /* Credits.html */,
 			);
 			name = "Supporting Files";
@@ -420,8 +418,6 @@
 					"\"$(SRCROOT)/Stack Exchange Notifier\"",
 					"\"$(SRCROOT)\"",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Stack Exchange Notifier/Stack Exchange Notifier-Prefix.pch";
 				INFOPLIST_FILE = "Stack Exchange Notifier/Stack Exchange Notifier-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hewgill.${PRODUCT_NAME:rfc1034identifier}";
@@ -442,8 +438,6 @@
 					"\"$(SRCROOT)/Stack Exchange Notifier\"",
 					"\"$(SRCROOT)\"",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Stack Exchange Notifier/Stack Exchange Notifier-Prefix.pch";
 				INFOPLIST_FILE = "Stack Exchange Notifier/Stack Exchange Notifier-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hewgill.${PRODUCT_NAME:rfc1034identifier}";

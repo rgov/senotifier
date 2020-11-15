@@ -79,7 +79,6 @@
 		3735B1CA14D3CF95002B0428 /* Stack Exchange Notifier-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Stack Exchange Notifier-Prefix.pch"; sourceTree = "<group>"; };
 		3735B1CE14D3CF95002B0428 /* Stack_Exchange_NotifierAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Stack_Exchange_NotifierAppDelegate.h; sourceTree = "<group>"; };
 		3735B1CF14D3CF95002B0428 /* Stack_Exchange_NotifierAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Stack_Exchange_NotifierAppDelegate.m; sourceTree = "<group>"; };
-		3735B1DA14D3CF95002B0428 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		3735B1F114D4B57A002B0428 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		3735B1F414D50BD6002B0428 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
 		3735B1F514D50BD6002B0428 /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
@@ -153,7 +152,6 @@
 			children = (
 				3735B1F114D4B57A002B0428 /* WebKit.framework */,
 				3735B1BC14D3CF94002B0428 /* Cocoa.framework */,
-				3735B1DA14D3CF95002B0428 /* SenTestingKit.framework */,
 				3735B1BE14D3CF94002B0428 /* Other Frameworks */,
 				231635F4376260399055BFB8 /* Pods_Stack_Exchange_Notifier.framework */,
 			);

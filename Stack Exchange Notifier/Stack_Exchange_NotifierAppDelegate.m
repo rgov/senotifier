@@ -334,15 +334,9 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     readItems = [NSUserDefaults.standardUserDefaults arrayForKey:DEFAULTS_KEY_READ_ITEMS];
 
     // setting icons
-    inactiveIcon = [[NSImage alloc] initByReferencingFile:[NSBundle.mainBundle
-                                    pathForResource:@"senotifier_inactive.png"
-                                    ofType:nil]];
-    inactiveIconAlt = [[NSImage alloc] initByReferencingFile:[NSBundle.mainBundle
-                                       pathForResource:@"senotifier_inactive_alt.png"
-                                       ofType:nil]];
-    activeIcon = [[NSImage alloc] initByReferencingFile:[NSBundle.mainBundle
-                                  pathForResource:@"senotifier.png" 
-                                  ofType:nil]];
+    inactiveIcon = [NSImage imageNamed:@"senotifier_inactive"];
+    inactiveIconAlt = [NSImage imageNamed:@"senotifier_inactive_alt"];
+    activeIcon = [NSImage imageNamed:@"senotifier"];
 
     // initialize the shared HTML entity decoder
     htmlEntityDecoder = [[DBGHTMLEntityDecoder alloc] init];

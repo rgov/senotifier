@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		2A00B0262560EB57007DD071 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A00B0252560EB57007DD071 /* Assets.xcassets */; };
 		37250416152F9D2100D5193A /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 37250415152F9D2100D5193A /* icon.icns */; };
 		3735B1BD14D3CF94002B0428 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3735B1BC14D3CF94002B0428 /* Cocoa.framework */; };
 		3735B1C714D3CF94002B0428 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3735B1C514D3CF94002B0428 /* InfoPlist.strings */; };
@@ -28,9 +29,6 @@
 		3735B1D014D3CF95002B0428 /* Stack_Exchange_NotifierAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3735B1CF14D3CF95002B0428 /* Stack_Exchange_NotifierAppDelegate.m */; };
 		3735B1D314D3CF95002B0428 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3735B1D114D3CF95002B0428 /* MainMenu.xib */; };
 		3735B1F214D4B57A002B0428 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3735B1F114D4B57A002B0428 /* WebKit.framework */; };
-		3735E9F716A5366E0036E6D5 /* senotifier_inactive_alt.png in Resources */ = {isa = PBXBuildFile; fileRef = 3735E9F416A5366E0036E6D5 /* senotifier_inactive_alt.png */; };
-		3735E9F816A5366E0036E6D5 /* senotifier_inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 3735E9F516A5366E0036E6D5 /* senotifier_inactive.png */; };
-		3735E9F916A5366E0036E6D5 /* senotifier.png in Resources */ = {isa = PBXBuildFile; fileRef = 3735E9F616A5366E0036E6D5 /* senotifier.png */; };
 		3735EA0916A692B10036E6D5 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 3735EA0816A692B10036E6D5 /* dsa_pub.pem */; };
 		37F9D60214DA7D2300DA4B70 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 37F9D60114DA7D2300DA4B70 /* Credits.html */; };
 		62467FBEFCEF0D87E6343159 /* Pods_Stack_Exchange_Notifier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 231635F4376260399055BFB8 /* Pods_Stack_Exchange_Notifier.framework */; };
@@ -54,6 +52,7 @@
 		2A00AFCF2560B323007DD071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		2A00AFD92560B6F8007DD071 /* appcast.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = appcast.xml; path = "Stack Exchange Notifier/appcast.xml"; sourceTree = SOURCE_ROOT; };
 		2A00AFDA2560B88E007DD071 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		2A00B0252560EB57007DD071 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		37250415152F9D2100D5193A /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		3735B1B814D3CF94002B0428 /* Stack Exchange Notifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stack Exchange Notifier.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3735B1BC14D3CF94002B0428 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -67,9 +66,6 @@
 		3735B1CE14D3CF95002B0428 /* Stack_Exchange_NotifierAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Stack_Exchange_NotifierAppDelegate.h; sourceTree = "<group>"; };
 		3735B1CF14D3CF95002B0428 /* Stack_Exchange_NotifierAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Stack_Exchange_NotifierAppDelegate.m; sourceTree = "<group>"; };
 		3735B1F114D4B57A002B0428 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		3735E9F416A5366E0036E6D5 /* senotifier_inactive_alt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = senotifier_inactive_alt.png; sourceTree = "<group>"; };
-		3735E9F516A5366E0036E6D5 /* senotifier_inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = senotifier_inactive.png; sourceTree = "<group>"; };
-		3735E9F616A5366E0036E6D5 /* senotifier.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = senotifier.png; sourceTree = "<group>"; };
 		3735EA0816A692B10036E6D5 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		37F9D60114DA7D2300DA4B70 /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 		EC2D3145AA6B5DEA66C673A1 /* Pods-Stack Exchange Notifier.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stack Exchange Notifier.release.xcconfig"; path = "Target Support Files/Pods-Stack Exchange Notifier/Pods-Stack Exchange Notifier.release.xcconfig"; sourceTree = "<group>"; };
@@ -135,9 +131,7 @@
 				3735B1CF14D3CF95002B0428 /* Stack_Exchange_NotifierAppDelegate.m */,
 				37250415152F9D2100D5193A /* icon.icns */,
 				3735B1D114D3CF95002B0428 /* MainMenu.xib */,
-				3735E9F416A5366E0036E6D5 /* senotifier_inactive_alt.png */,
-				3735E9F516A5366E0036E6D5 /* senotifier_inactive.png */,
-				3735E9F616A5366E0036E6D5 /* senotifier.png */,
+				2A00B0252560EB57007DD071 /* Assets.xcassets */,
 				3735B1C314D3CF94002B0428 /* Supporting Files */,
 			);
 			path = "Stack Exchange Notifier";
@@ -226,9 +220,7 @@
 				3735B1D314D3CF95002B0428 /* MainMenu.xib in Resources */,
 				37F9D60214DA7D2300DA4B70 /* Credits.html in Resources */,
 				37250416152F9D2100D5193A /* icon.icns in Resources */,
-				3735E9F716A5366E0036E6D5 /* senotifier_inactive_alt.png in Resources */,
-				3735E9F816A5366E0036E6D5 /* senotifier_inactive.png in Resources */,
-				3735E9F916A5366E0036E6D5 /* senotifier.png in Resources */,
+				2A00B0262560EB57007DD071 /* Assets.xcassets in Resources */,
 				3735EA0916A692B10036E6D5 /* dsa_pub.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

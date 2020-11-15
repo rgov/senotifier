@@ -43,11 +43,10 @@
 		3735E9F716A5366E0036E6D5 /* senotifier_inactive_alt.png in Resources */ = {isa = PBXBuildFile; fileRef = 3735E9F416A5366E0036E6D5 /* senotifier_inactive_alt.png */; };
 		3735E9F816A5366E0036E6D5 /* senotifier_inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 3735E9F516A5366E0036E6D5 /* senotifier_inactive.png */; };
 		3735E9F916A5366E0036E6D5 /* senotifier.png in Resources */ = {isa = PBXBuildFile; fileRef = 3735E9F616A5366E0036E6D5 /* senotifier.png */; };
-		3735EA0616A66CB30036E6D5 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3735EA0516A66CB30036E6D5 /* Sparkle.framework */; };
-		3735EA0716A66CE70036E6D5 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3735EA0516A66CB30036E6D5 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		3735EA0916A692B10036E6D5 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 3735EA0816A692B10036E6D5 /* dsa_pub.pem */; };
 		37F9D5FE14D5F39C00DA4B70 /* NSString+html.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F9D5FD14D5F39C00DA4B70 /* NSString+html.m */; };
 		37F9D60214DA7D2300DA4B70 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 37F9D60114DA7D2300DA4B70 /* Credits.html */; };
+		62467FBEFCEF0D87E6343159 /* Pods_Stack_Exchange_Notifier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 231635F4376260399055BFB8 /* Pods_Stack_Exchange_Notifier.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -57,15 +56,17 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3735EA0716A66CE70036E6D5 /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		15F0CA009232C3565938D142 /* Pods-Stack Exchange Notifier.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stack Exchange Notifier.debug.xcconfig"; path = "Target Support Files/Pods-Stack Exchange Notifier/Pods-Stack Exchange Notifier.debug.xcconfig"; sourceTree = "<group>"; };
+		231635F4376260399055BFB8 /* Pods_Stack_Exchange_Notifier.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Stack_Exchange_Notifier.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A00AFCF2560B323007DD071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		2A00AFD92560B6F8007DD071 /* appcast.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = appcast.xml; path = "Stack Exchange Notifier/appcast.xml"; sourceTree = SOURCE_ROOT; };
+		2A00AFDA2560B88E007DD071 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		37250415152F9D2100D5193A /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		3735B1B814D3CF94002B0428 /* Stack Exchange Notifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stack Exchange Notifier.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3735B1BC14D3CF94002B0428 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -108,11 +109,11 @@
 		3735E9F416A5366E0036E6D5 /* senotifier_inactive_alt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = senotifier_inactive_alt.png; sourceTree = "<group>"; };
 		3735E9F516A5366E0036E6D5 /* senotifier_inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = senotifier_inactive.png; sourceTree = "<group>"; };
 		3735E9F616A5366E0036E6D5 /* senotifier.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = senotifier.png; sourceTree = "<group>"; };
-		3735EA0516A66CB30036E6D5 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		3735EA0816A692B10036E6D5 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		37F9D5FC14D5F39C00DA4B70 /* NSString+html.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+html.h"; sourceTree = "<group>"; };
 		37F9D5FD14D5F39C00DA4B70 /* NSString+html.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+html.m"; sourceTree = "<group>"; };
 		37F9D60114DA7D2300DA4B70 /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
+		EC2D3145AA6B5DEA66C673A1 /* Pods-Stack Exchange Notifier.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stack Exchange Notifier.release.xcconfig"; path = "Target Support Files/Pods-Stack Exchange Notifier/Pods-Stack Exchange Notifier.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,7 +123,7 @@
 			files = (
 				3735B1F214D4B57A002B0428 /* WebKit.framework in Frameworks */,
 				3735B1BD14D3CF94002B0428 /* Cocoa.framework in Frameworks */,
-				3735EA0616A66CB30036E6D5 /* Sparkle.framework in Frameworks */,
+				62467FBEFCEF0D87E6343159 /* Pods_Stack_Exchange_Notifier.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,6 +136,7 @@
 				3735B1C214D3CF94002B0428 /* Stack Exchange Notifier */,
 				3735B1BB14D3CF94002B0428 /* Frameworks */,
 				3735B1B914D3CF94002B0428 /* Products */,
+				9B9D13CB8AF49C98D19E23DD /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -149,11 +151,11 @@
 		3735B1BB14D3CF94002B0428 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3735EA0516A66CB30036E6D5 /* Sparkle.framework */,
 				3735B1F114D4B57A002B0428 /* WebKit.framework */,
 				3735B1BC14D3CF94002B0428 /* Cocoa.framework */,
 				3735B1DA14D3CF95002B0428 /* SenTestingKit.framework */,
 				3735B1BE14D3CF94002B0428 /* Other Frameworks */,
+				231635F4376260399055BFB8 /* Pods_Stack_Exchange_Notifier.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -189,6 +191,7 @@
 		3735B1C314D3CF94002B0428 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2A00AFDA2560B88E007DD071 /* Podfile */,
 				2A00AFD92560B6F8007DD071 /* appcast.xml */,
 				3735EA0816A692B10036E6D5 /* dsa_pub.pem */,
 				3735B1C414D3CF94002B0428 /* Stack Exchange Notifier-Info.plist */,
@@ -232,6 +235,15 @@
 			name = SBJson;
 			sourceTree = "<group>";
 		};
+		9B9D13CB8AF49C98D19E23DD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				15F0CA009232C3565938D142 /* Pods-Stack Exchange Notifier.debug.xcconfig */,
+				EC2D3145AA6B5DEA66C673A1 /* Pods-Stack Exchange Notifier.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -239,10 +251,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3735B1EB14D3CF95002B0428 /* Build configuration list for PBXNativeTarget "Stack Exchange Notifier" */;
 			buildPhases = (
+				99971177C9D2FF2373190F9D /* [CP] Check Pods Manifest.lock */,
 				3735B1B414D3CF94002B0428 /* Sources */,
 				3735B1B514D3CF94002B0428 /* Frameworks */,
 				3735B1B614D3CF94002B0428 /* Resources */,
 				37F54B5514FCD8A2003F4E0D /* CopyFiles */,
+				4ACA0152227E42E706F7A4F6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -311,6 +325,46 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\ndmg=\"$BUILT_PRODUCTS_DIR/`echo $PROJECT_NAME | tr A-Z' ' a-z-`.dmg\"\nrm $dmg\nhdiutil create -srcfolder \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app\" $dmg\ncp $dmg ~/docs/hewgill.com/senotifier/\n";
+		};
+		4ACA0152227E42E706F7A4F6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Stack Exchange Notifier/Pods-Stack Exchange Notifier-frameworks.sh",
+				"${PODS_ROOT}/Sparkle/Sparkle.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Stack Exchange Notifier/Pods-Stack Exchange Notifier-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		99971177C9D2FF2373190F9D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Stack Exchange Notifier-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -453,6 +507,7 @@
 		};
 		3735B1EC14D3CF95002B0428 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 15F0CA009232C3565938D142 /* Pods-Stack Exchange Notifier.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -474,6 +529,7 @@
 		};
 		3735B1ED14D3CF95002B0428 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EC2D3145AA6B5DEA66C673A1 /* Pods-Stack Exchange Notifier.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";

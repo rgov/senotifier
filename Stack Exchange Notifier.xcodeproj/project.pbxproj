@@ -22,7 +22,6 @@
 
 /* Begin PBXBuildFile section */
 		2A00B0262560EB57007DD071 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A00B0252560EB57007DD071 /* Assets.xcassets */; };
-		37250416152F9D2100D5193A /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 37250415152F9D2100D5193A /* icon.icns */; };
 		3735B1BD14D3CF94002B0428 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3735B1BC14D3CF94002B0428 /* Cocoa.framework */; };
 		3735B1C714D3CF94002B0428 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3735B1C514D3CF94002B0428 /* InfoPlist.strings */; };
 		3735B1C914D3CF94002B0428 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3735B1C814D3CF94002B0428 /* main.m */; };
@@ -53,7 +52,6 @@
 		2A00AFD92560B6F8007DD071 /* appcast.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = appcast.xml; path = "Stack Exchange Notifier/appcast.xml"; sourceTree = SOURCE_ROOT; };
 		2A00AFDA2560B88E007DD071 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		2A00B0252560EB57007DD071 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		37250415152F9D2100D5193A /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		3735B1B814D3CF94002B0428 /* Stack Exchange Notifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stack Exchange Notifier.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3735B1BC14D3CF94002B0428 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		3735B1BF14D3CF94002B0428 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -126,7 +124,6 @@
 		3735B1C214D3CF94002B0428 /* Stack Exchange Notifier */ = {
 			isa = PBXGroup;
 			children = (
-				37250415152F9D2100D5193A /* icon.icns */,
 				3735B1CE14D3CF95002B0428 /* AppDelegate.h */,
 				3735B1CF14D3CF95002B0428 /* AppDelegate.m */,
 				3735B1D114D3CF95002B0428 /* MainMenu.xib */,
@@ -217,7 +214,6 @@
 				3735B1C714D3CF94002B0428 /* InfoPlist.strings in Resources */,
 				3735B1D314D3CF95002B0428 /* MainMenu.xib in Resources */,
 				37F9D60214DA7D2300DA4B70 /* Credits.html in Resources */,
-				37250416152F9D2100D5193A /* icon.icns in Resources */,
 				2A00B0262560EB57007DD071 /* Assets.xcassets in Resources */,
 				3735EA0916A692B10036E6D5 /* dsa_pub.pem in Resources */,
 			);
@@ -411,6 +407,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 15F0CA009232C3565938D142 /* Pods-Stack Exchange Notifier.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -431,6 +428,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EC2D3145AA6B5DEA66C673A1 /* Pods-Stack Exchange Notifier.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
 				FRAMEWORK_SEARCH_PATHS = (

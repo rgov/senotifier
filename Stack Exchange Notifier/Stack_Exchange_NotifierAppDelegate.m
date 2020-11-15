@@ -3,7 +3,7 @@
 //  Stack Exchange Notifier
 //
 //  Created by Greg Hewgill on 28/01/12.
-//  Copyright 2012 __MyCompanyName__. All rights reserved.
+//  Copyright 2012 Greg Hewgill. All rights reserved.
 //
 
 #import "Stack_Exchange_NotifierAppDelegate.h"

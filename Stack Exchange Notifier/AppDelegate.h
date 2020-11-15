@@ -13,7 +13,7 @@
 #import <DBGHTMLEntities/DBGHTMLEntityDecoder.h>
 
 
-@interface Stack_Exchange_NotifierAppDelegate : NSObject <NSApplicationDelegate, NSMenuDelegate, NSUserNotificationCenterDelegate, WebFrameLoadDelegate> {
+@interface AppDelegate : NSObject <NSApplicationDelegate, NSMenuDelegate, NSUserNotificationCenterDelegate, WebFrameLoadDelegate> {
     
     // Timer for checking the inbox every 5 minutes
     NSTimer *checkInboxTimer;

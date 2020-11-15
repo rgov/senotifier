@@ -6,7 +6,7 @@
 //  Copyright 2012 Greg Hewgill. All rights reserved.
 //
 
-#import "Stack_Exchange_NotifierAppDelegate.h"
+#import "AppDelegate.h"
 #import <Sparkle/Sparkle.h>
 
 
@@ -184,7 +184,7 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     menuitem.attributedTitle = title;
 }
 
-@implementation Stack_Exchange_NotifierAppDelegate {
+@implementation AppDelegate {
     SUUpdater *sparkleUpdater;
 }
 

@@ -26,7 +26,7 @@
 		3735B1BD14D3CF94002B0428 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3735B1BC14D3CF94002B0428 /* Cocoa.framework */; };
 		3735B1C714D3CF94002B0428 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3735B1C514D3CF94002B0428 /* InfoPlist.strings */; };
 		3735B1C914D3CF94002B0428 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3735B1C814D3CF94002B0428 /* main.m */; };
-		3735B1D014D3CF95002B0428 /* Stack_Exchange_NotifierAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3735B1CF14D3CF95002B0428 /* Stack_Exchange_NotifierAppDelegate.m */; };
+		3735B1D014D3CF95002B0428 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3735B1CF14D3CF95002B0428 /* AppDelegate.m */; };
 		3735B1D314D3CF95002B0428 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3735B1D114D3CF95002B0428 /* MainMenu.xib */; };
 		3735B1F214D4B57A002B0428 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3735B1F114D4B57A002B0428 /* WebKit.framework */; };
 		3735EA0916A692B10036E6D5 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 3735EA0816A692B10036E6D5 /* dsa_pub.pem */; };
@@ -59,11 +59,11 @@
 		3735B1BF14D3CF94002B0428 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		3735B1C014D3CF94002B0428 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		3735B1C114D3CF94002B0428 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		3735B1C414D3CF94002B0428 /* Stack Exchange Notifier-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Stack Exchange Notifier-Info.plist"; sourceTree = "<group>"; };
+		3735B1C414D3CF94002B0428 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3735B1C614D3CF94002B0428 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3735B1C814D3CF94002B0428 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		3735B1CE14D3CF95002B0428 /* Stack_Exchange_NotifierAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Stack_Exchange_NotifierAppDelegate.h; sourceTree = "<group>"; };
-		3735B1CF14D3CF95002B0428 /* Stack_Exchange_NotifierAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Stack_Exchange_NotifierAppDelegate.m; sourceTree = "<group>"; };
+		3735B1CE14D3CF95002B0428 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		3735B1CF14D3CF95002B0428 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		3735B1F114D4B57A002B0428 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		3735EA0816A692B10036E6D5 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		37F9D60114DA7D2300DA4B70 /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
@@ -126,9 +126,9 @@
 		3735B1C214D3CF94002B0428 /* Stack Exchange Notifier */ = {
 			isa = PBXGroup;
 			children = (
-				3735B1CE14D3CF95002B0428 /* Stack_Exchange_NotifierAppDelegate.h */,
-				3735B1CF14D3CF95002B0428 /* Stack_Exchange_NotifierAppDelegate.m */,
 				37250415152F9D2100D5193A /* icon.icns */,
+				3735B1CE14D3CF95002B0428 /* AppDelegate.h */,
+				3735B1CF14D3CF95002B0428 /* AppDelegate.m */,
 				3735B1D114D3CF95002B0428 /* MainMenu.xib */,
 				2A00B0252560EB57007DD071 /* Assets.xcassets */,
 				3735B1C314D3CF94002B0428 /* Supporting Files */,
@@ -142,7 +142,7 @@
 				2A00AFDA2560B88E007DD071 /* Podfile */,
 				2A00AFD92560B6F8007DD071 /* appcast.xml */,
 				3735EA0816A692B10036E6D5 /* dsa_pub.pem */,
-				3735B1C414D3CF94002B0428 /* Stack Exchange Notifier-Info.plist */,
+				3735B1C414D3CF94002B0428 /* Info.plist */,
 				3735B1C514D3CF94002B0428 /* InfoPlist.strings */,
 				3735B1C814D3CF94002B0428 /* main.m */,
 				37F9D60114DA7D2300DA4B70 /* Credits.html */,
@@ -289,7 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3735B1C914D3CF94002B0428 /* main.m in Sources */,
-				3735B1D014D3CF95002B0428 /* Stack_Exchange_NotifierAppDelegate.m in Sources */,
+				3735B1D014D3CF95002B0428 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,7 +418,7 @@
 					"\"$(SRCROOT)/Stack Exchange Notifier\"",
 					"\"$(SRCROOT)\"",
 				);
-				INFOPLIST_FILE = "Stack Exchange Notifier/Stack Exchange Notifier-Info.plist";
+				INFOPLIST_FILE = "Stack Exchange Notifier/Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hewgill.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -438,7 +438,7 @@
 					"\"$(SRCROOT)/Stack Exchange Notifier\"",
 					"\"$(SRCROOT)\"",
 				);
-				INFOPLIST_FILE = "Stack Exchange Notifier/Stack Exchange Notifier-Info.plist";
+				INFOPLIST_FILE = "Stack Exchange Notifier/Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hewgill.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";

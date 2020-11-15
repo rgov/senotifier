@@ -41,8 +41,6 @@
     time_t lastCheck;
     // Error message if we got an error reading the inbox
     NSString *lastCheckError;
-    // Default hide time (minutes)
-    long hideIconTime;
     // Icons when no messages
     NSImage *inactiveIcon;
     NSImage *inactiveIconAlt;

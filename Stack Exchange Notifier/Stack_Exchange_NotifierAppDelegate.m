@@ -18,8 +18,7 @@ NSString *CLIENT_KEY = @"JBpdN2wRVnHTq9E*uuyTPQ((";
 NSString *DEFAULTS_KEY_ALL_ITEMS = @"com.hewgill.senotifier.allitems";
 // Name of key to store read items in defaults
 NSString *DEFAULTS_KEY_READ_ITEMS = @"com.hewgill.senotifier.readitems";
-// Name of key to store hide icon time
-NSString *DEFAULTS_KEY_HIDE_ICON_TIME = @"com.hewgill.senotifier.hidetime";
+
 
 // Local function prototypes
 
@@ -288,14 +287,6 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     [menu addItem:preferences];
     [menu setSubmenu:preferencesMenu forItem:preferences];
     
-    NSMenu *hideMenu = [[NSMenu alloc] initWithTitle:@""];
-    [hideMenu addItem:[[NSMenuItem alloc] initWithTitle:@"25 minutes" action:@selector(hideIcon25) keyEquivalent:@""]];
-    [hideMenu addItem:[[NSMenuItem alloc] initWithTitle:@"1 hour" action:@selector(hideIcon60) keyEquivalent:@""]];
-    [hideMenu addItem:[[NSMenuItem alloc] initWithTitle:@"2 hours" action:@selector(hideIcon120) keyEquivalent:@""]];
-    [hideMenu addItem:[[NSMenuItem alloc] initWithTitle:@"4 hours" action:@selector(hideIcon240) keyEquivalent:@""]];
-    NSMenuItem *hide = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"Hide for %@", minutesToString(hideIconTime)] action:@selector(hideIcon) keyEquivalent:@""];
-    [menu addItem:hide];
-    [menu setSubmenu:hideMenu forItem:hide];
     [menu addItem:[[NSMenuItem alloc] initWithTitle:@"Invalidate login token" action:@selector(invalidate) keyEquivalent:@""]];
     NSMenuItem *check_updates = [[NSMenuItem alloc] initWithTitle:@"Check for app updates" action:@selector(checkForUpdates:) keyEquivalent:@""];
     check_updates.target = sparkleUpdater;
@@ -347,12 +338,6 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 
     // read the list of items already read from defaults
     readItems = [[NSUserDefaults standardUserDefaults] arrayForKey:DEFAULTS_KEY_READ_ITEMS];
-        
-    // read current hide time
-    hideIconTime = [[NSUserDefaults standardUserDefaults] integerForKey:DEFAULTS_KEY_HIDE_ICON_TIME];
-    if (hideIconTime <= 0) {
-        hideIconTime = 25;
-    }
 
     // setting icons
     inactiveIcon = [[NSImage alloc] initByReferencingFile:[[NSBundle mainBundle]
@@ -415,40 +400,6 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     } else {
         NSLog(@"failed to create connection");
     }
-}
-
-// Hide the status item icon, setting a timer for 25
-// minutes to show it again.
--(void)hideIcon
-{
-    NSStatusBar *bar = [NSStatusBar systemStatusBar];
-    [bar removeStatusItem:statusItem];
-    statusItem = nil;
-    [NSTimer scheduledTimerWithTimeInterval:hideIconTime*60
-             target:self
-             selector:@selector(showIcon)
-             userInfo:nil
-             repeats:NO];
-}
-
--(void)hideIconSet:(long)newHideTime
-{
-    [[NSUserDefaults standardUserDefaults] setInteger:newHideTime forKey:DEFAULTS_KEY_HIDE_ICON_TIME];
-    [self hideIcon];
-}
-
--(void)hideIcon25 { [self hideIconSet:25]; }
--(void)hideIcon60 { [self hideIconSet:60]; }
--(void)hideIcon120 { [self hideIconSet:120]; }
--(void)hideIcon240 { [self hideIconSet:240]; }
-
-// Show the status icon after the hiding timeout and
-// check for new inbox items straight away.
--(void)showIcon
-{
-    statusItem = createStatusItem(inactiveIcon);
-    [self resetMenu];
-    [self checkInbox];
 }
 
 // Invalidate login token on the server. Might help with debugging.

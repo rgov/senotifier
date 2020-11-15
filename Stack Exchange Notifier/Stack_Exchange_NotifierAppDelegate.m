@@ -119,7 +119,7 @@ static BOOL willStartAtLogin()
 
 static void setStartAtLogin(BOOL enabled)
 {
-    NSURL *appurl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
+    NSURL *appurl = [NSURL fileURLWithPath:[NSBundle mainBundle].bundlePath];
     LSSharedFileListItemRef existing = NULL;
     LSSharedFileListRef items = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
     if (items) {
@@ -162,8 +162,7 @@ static void setStartAtLogin(BOOL enabled)
 // when the icon is unhidden.
 NSStatusItem *createStatusItem(NSImage* icon)
 {
-    NSStatusBar *bar = [NSStatusBar systemStatusBar];
-    NSStatusItem *item = [bar statusItemWithLength:NSVariableStatusItemLength];
+    NSStatusItem *item = [NSStatusBar.systemStatusBar statusItemWithLength:NSVariableStatusItemLength];
     item.button.image = icon;
     item.button.highlighted = YES;
     return item;
@@ -172,19 +171,17 @@ NSStatusItem *createStatusItem(NSImage* icon)
 // Utility function to set an inbox item menu item.
 void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 {
-    NSFont *font = highlight ? [NSFont menuBarFontOfSize:0.0] : [NSFont menuBarFontOfSize:0.0];
-   
-    NSDictionary *attrs = [[NSDictionary alloc] initWithObjectsAndKeys:
-        font, NSFontAttributeName,
-        [NSNumber numberWithFloat:(highlight ? -4.0 : 0.0)], NSStrokeWidthAttributeName,
-        nil];
+    NSDictionary *attrs = @{
+        NSFontAttributeName: [NSFont menuBarFontOfSize:0.0],
+        NSStrokeWidthAttributeName: [NSNumber numberWithFloat:(highlight ? -4.0 : 0.0)],
+    };
     
-    NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:[msg objectForKey:@"body"]
+    NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:msg[@"body"]
                                                                               attributes:attrs];
     
     DBGHTMLEntityDecoder *htmlEntityDecoder = [[DBGHTMLEntityDecoder alloc] init];
     [htmlEntityDecoder decodeStringInPlace:title.mutableString];
-    [menuitem setAttributedTitle:title];
+    menuitem.attributedTitle = title;
 }
 
 @implementation Stack_Exchange_NotifierAppDelegate {
@@ -198,36 +195,37 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 // if available.
 -(void)menuWillOpen:(NSMenu *)menu;
 {
-    NSDictionary *normalattrs = [[NSDictionary alloc] initWithObjectsAndKeys:
-        [NSFont menuBarFontOfSize:0.0], NSFontAttributeName,
-        nil];
+    NSDictionary *normalattrs = @{
+        NSFontAttributeName: [NSFont menuBarFontOfSize:0.0],
+    };
+    
     NSMutableAttributedString *at = [[NSMutableAttributedString alloc] initWithString:@"Log in" attributes:normalattrs];
     if (loginError != nil) {
-        NSDictionary *redattrs = [[NSDictionary alloc] initWithObjectsAndKeys:
-            [NSFont menuBarFontOfSize:0.0], NSFontAttributeName,
-            [NSColor redColor], NSForegroundColorAttributeName,
-            nil];
+        NSDictionary *redattrs = @{
+            NSFontAttributeName: [NSFont menuBarFontOfSize:0.0],
+            NSForegroundColorAttributeName: [NSColor redColor],
+        };
         [at appendAttributedString:[[NSAttributedString alloc] initWithString:@" - " attributes:redattrs]];
         [at appendAttributedString:[[NSAttributedString alloc] initWithString:loginError attributes:redattrs]];
     }
-    [[menu itemAtIndex:1] setAttributedTitle:at];
+    [menu itemAtIndex:1].attributedTitle = at;
     
     at = [[NSMutableAttributedString alloc] initWithString:@"Check Now" attributes:normalattrs];
     if (lastCheckError != nil) {
-        NSDictionary *redattrs = [[NSDictionary alloc] initWithObjectsAndKeys:
-            [NSFont menuBarFontOfSize:0.0], NSFontAttributeName,
-            [NSColor redColor], NSForegroundColorAttributeName,
-            nil];
+        NSDictionary *redattrs = @{
+            NSFontAttributeName: [NSFont menuBarFontOfSize:0.0],
+            NSForegroundColorAttributeName: [NSColor redColor],
+        };
         [at appendAttributedString:[[NSAttributedString alloc] initWithString:@" - " attributes:redattrs]];
         [at appendAttributedString:[[NSAttributedString alloc] initWithString:lastCheckError attributes:redattrs]];
     } else if (lastCheck) {
-        NSDictionary *grayattrs = [[NSDictionary alloc] initWithObjectsAndKeys:
-            [NSFont menuBarFontOfSize:0.0], NSFontAttributeName,
-            [NSColor grayColor], NSForegroundColorAttributeName,
-            nil];
+        NSDictionary *grayattrs = @{
+            NSFontAttributeName: [NSFont menuBarFontOfSize:0.0],
+            NSForegroundColorAttributeName: [NSColor grayColor],
+        };
         [at appendAttributedString:[[NSAttributedString alloc] initWithString:timeAgo(lastCheck) attributes:grayattrs]];
     }
-    [[menu itemAtIndex:2] setAttributedTitle:at];
+    [menu itemAtIndex:2].attributedTitle = at;
 }
 
 // Completely reset the menu, creating a new one and add all items
@@ -237,7 +235,7 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 -(void)resetMenu
 {
     menu = [[NSMenu alloc] initWithTitle:@""];
-    [menu setDelegate:self];
+    menu.delegate = self;
     
     [menu addItem:[[NSMenuItem alloc] initWithTitle:@"About" action:@selector(showAbout) keyEquivalent:@""]];
     [menu addItem:[[NSMenuItem alloc] initWithTitle:@"Log in" action:@selector(doLogin) keyEquivalent:@""]];
@@ -246,29 +244,26 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     [menu addItem:[NSMenuItem separatorItem]];
         
     unsigned int unread = 0;
-    targets = [NSMutableArray arrayWithCapacity:[items count]];
-    if ([items count] > 0) {
+    targets = [NSMutableArray arrayWithCapacity:items.count];
+    if (items.count > 0) {
         unsigned int i = 0;
-        for (NSDictionary *obj in [items objectEnumerator]) {
-            NSMenuItem *it = [[NSMenuItem alloc] initWithTitle:[htmlEntityDecoder decodeString:[obj objectForKey:@"body"]]
+        for (NSDictionary *obj in items) {
+            NSMenuItem *it = [[NSMenuItem alloc] initWithTitle:[htmlEntityDecoder decodeString:obj[@"body"]]
                                                         action:@selector(fire)
                                                  keyEquivalent:@""];
-            bool read = [readItems containsObject:[obj objectForKey:@"link"]];
+            bool read = [readItems containsObject:obj[@"link"]];
             setMenuItemTitle(it, obj, !read);
             if (!read) {
                 unread++;
             }
-            NSImage *icon = [[NSImage alloc] initByReferencingURL:[[NSURL alloc] initWithString:[[obj objectForKey:@"site"] objectForKey:@"icon_url"]]];
-            NSSize size;
-            size.height = 24;
-            size.width = 24;
-            [icon setSize:size];
-            [it setImage:icon];
+            NSImage *icon = [[NSImage alloc] initByReferencingURL:[[NSURL alloc] initWithString:obj[@"site"][@"icon_url"]]];
+            icon.size = NSMakeSize(24, 24);
+            it.image = icon;
             IndirectTarget *t = [[IndirectTarget alloc] initWithArg:[NSNumber numberWithUnsignedInt:i] action:@selector(openUrlFromItem:) originalTarget:self];
             // must store the IndirectTarget somewhere to retain it, because
             // NSMenuItem won't do that for us
             [targets addObject:t];
-            [it setTarget:t];
+            it.target = t;
             [menu addItem:it];
             i++;
         }
@@ -281,7 +276,7 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     NSMenu *preferencesMenu = [[NSMenu alloc] initWithTitle:@""];
     
     NSMenuItem *enableStartAtLogin = [[NSMenuItem alloc] initWithTitle:@"Start at login" action:@selector(changeStartAtLogin) keyEquivalent:@""];
-    [enableStartAtLogin setState:willStartAtLogin() ? NSOnState : NSOffState];
+    enableStartAtLogin.state = willStartAtLogin() ? NSOnState : NSOffState;
     [preferencesMenu addItem:enableStartAtLogin];
     NSMenuItem *preferences = [[NSMenuItem alloc] initWithTitle:@"Preferences" action:nil keyEquivalent:@""];
     [menu addItem:preferences];
@@ -296,15 +291,15 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     if (statusItem != nil) {
         // if there are any unread items, display that number on the status bar
         if (unread > 0) {
-            [statusItem setTitle:[NSString stringWithFormat:@"%u", unread]];
-            [statusItem setImage:activeIcon];
-            [statusItem setAlternateImage:nil];
+            statusItem.button.title = [NSString stringWithFormat:@"%u", unread];
+            statusItem.button.image = activeIcon;
+            statusItem.button.alternateImage = nil;
         } else {
-            [statusItem setTitle:nil];
-            [statusItem setImage:inactiveIcon];
-            [statusItem setAlternateImage:inactiveIconAlt];
+            statusItem.button.title = @"";
+            statusItem.button.image = inactiveIcon;
+            statusItem.button.alternateImage = inactiveIconAlt;
         }
-        [statusItem setMenu:menu];
+        statusItem.menu = menu;
     }
 }
 
@@ -334,19 +329,19 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     lastCheckError = nil;
 
     // read the list of all items from defaults
-    allItems = [[NSUserDefaults standardUserDefaults] arrayForKey:DEFAULTS_KEY_ALL_ITEMS];
+    allItems = [NSUserDefaults.standardUserDefaults arrayForKey:DEFAULTS_KEY_ALL_ITEMS];
 
     // read the list of items already read from defaults
-    readItems = [[NSUserDefaults standardUserDefaults] arrayForKey:DEFAULTS_KEY_READ_ITEMS];
+    readItems = [NSUserDefaults.standardUserDefaults arrayForKey:DEFAULTS_KEY_READ_ITEMS];
 
     // setting icons
-    inactiveIcon = [[NSImage alloc] initByReferencingFile:[[NSBundle mainBundle]
+    inactiveIcon = [[NSImage alloc] initByReferencingFile:[NSBundle.mainBundle
                                     pathForResource:@"senotifier_inactive.png"
                                     ofType:nil]];
-    inactiveIconAlt = [[NSImage alloc] initByReferencingFile:[[NSBundle mainBundle]
+    inactiveIconAlt = [[NSImage alloc] initByReferencingFile:[NSBundle.mainBundle
                                        pathForResource:@"senotifier_inactive_alt.png"
                                        ofType:nil]];
-    activeIcon = [[NSImage alloc] initByReferencingFile:[[NSBundle mainBundle]
+    activeIcon = [[NSImage alloc] initByReferencingFile:[NSBundle.mainBundle
                                   pathForResource:@"senotifier.png" 
                                   ofType:nil]];
 
@@ -358,11 +353,11 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     [self resetMenu];
 
     // create the web view that we will use for login
-    web = [[WebView alloc] initWithFrame:[window frame]];
-    [window setContentView:web];
-    [web setFrameLoadDelegate:self];
+    web = [[WebView alloc] initWithFrame:window.frame];
+    window.contentView = web;
+    web.frameLoadDelegate = self;
     
-    [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
+    NSUserNotificationCenter.defaultUserNotificationCenter.delegate = self;
 
     // kick off a login procedure
     [self doLogin];
@@ -422,12 +417,12 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 // and we can't reach the server.
 -(void)webView:(WebView *)sender didFailProvisionalLoadWithError:(NSError *)error forFrame:(WebFrame *)frame
 {
-    loginError = [error localizedDescription];
-    
+    loginError = error.localizedDescription;
+
     [[NSAlert alertWithError:error] runModal];
     // There isn't anything on the web page for the user to interact with
     // at this point, so close the view.
-    [window setIsVisible:NO];
+    window.isVisible = NO;
 }
 
 // Called from the WebView when there is an error of some kind
@@ -439,11 +434,11 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     if (error.code == NSURLErrorCancelled) {
         return;
     }
-    loginError = [error localizedDescription];
+    loginError = error.localizedDescription;
     [[NSAlert alertWithError:error] runModal];
     // There might be something the user wants to read in this case,
     // so don't close the view.
-    //[window setIsVisible:NO];
+    //window.isVisible = NO;
 }
 
 // Finished the login process. The server sends the browser to
@@ -452,8 +447,8 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 -(void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
 {
     // Get the current URL from the frame.
-    NSURL *url = [[[frame dataSource] request] URL];
-    NSLog(@"finished loading %@", [url absoluteString]);
+    NSURL *url = frame.dataSource.request.URL;
+    NSLog(@"finished loading %@", url.absoluteString);
     // Make sure we've ended up at the "login success" page
     if (![[url absoluteString] hasPrefix:@"https://stackexchange.com/oauth/login_success"]) {
         loginError = @"Error logging in to Stack Exchange.";
@@ -469,11 +464,11 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     r.location += 13;
     NSRange e = [fragment rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"&"]];
     if (e.location == NSNotFound) {
-        e.location = [fragment length];
+        e.location = fragment.length;
     }
     access_token = [fragment substringWithRange:NSMakeRange(r.location, e.location - r.location)];
     // Close the window, we're done with it.
-    [window setIsVisible:NO];
+    window.isVisible = NO;
     // Clear any login error, since it succeeded this time.
     loginError = nil;
     // Finally, check the inbox now that we're logged in.
@@ -483,13 +478,13 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 // Connection error of some kind when sending inbox request.
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    lastCheckError = [error localizedDescription];
+    lastCheckError = error.localizedDescription;
 }
 
 // Started to receive an API response from the server.
 -(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    [receivedData setLength:0];
+    receivedData.length = 0;
 }
 
 // Received some more data from the server for an API request.
@@ -514,37 +509,37 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     NSData *prettyJSON = [NSJSONSerialization dataWithJSONObject:r
                                                          options:NSJSONWritingPrettyPrinted
                                                            error:nil];
-    NSLog(@"json %@", [NSString stringWithUTF8String:[prettyJSON bytes]]);
+    NSLog(@"json %@", [NSString stringWithUTF8String:prettyJSON.bytes]);
 #endif
     
     // If we got an error, try logging in again.
-    if ([r objectForKey:@"error_id"]) {
-        lastCheckError = [r objectForKey:@"error_name"];
+    if (r[@"error_id"]) {
+        lastCheckError = r[@"error_name"];
         // only auto-login if we got an expired access token (which is expected)
         if ([lastCheckError compare:@"invalid_access_token"] == NSOrderedSame
-         && [(NSString *)[r objectForKey:@"error_message"] compare:@"expired"] == NSOrderedSame) {
+         && [(NSString *)r[@"error_message"] compare:@"expired"] == NSOrderedSame) {
             [self doLogin];
         }
         return;
     }
     
     // Get the unread inbox items according to the server.
-    items = [r objectForKey:@"items"];
+    items = r[@"items"];
     
     
 
     // First copy all server items into our local copy, notifying for each new one
-    NSMutableArray *newAllItems = [[NSMutableArray alloc] initWithCapacity:[items count]];
-    for (NSDictionary *item in [items objectEnumerator]) {
-        NSString *link = [item objectForKey:@"link"];
+    NSMutableArray *newAllItems = [[NSMutableArray alloc] initWithCapacity:items.count];
+    for (NSDictionary *item in items) {
+        NSString *link = item[@"link"];
         if (![allItems containsObject:link]) {
             NSUserNotification *notification = [[NSUserNotification alloc] init];
-            notification.title = [[item objectForKey:@"site"] objectForKey:@"name"];
-            notification.informativeText = [htmlEntityDecoder decodeString:[item objectForKey:@"body"]];
+            notification.title = item[@"site"][@"name"];
+            notification.informativeText = [htmlEntityDecoder decodeString:item[@"body"]];
             notification.soundName = NSUserNotificationDefaultSoundName;
             notification.userInfo = @{@"link": item[@"link"]};
 
-            [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
+            [NSUserNotificationCenter.defaultUserNotificationCenter deliverNotification:notification];
         }
         [newAllItems addObject:link];
     }
@@ -555,12 +550,12 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     // list for those items where the server still thinks they're
     // unread. Trim out local items that no longer appear in the
     // server's unread list.
-    NSMutableArray *newReadItems = [[NSMutableArray alloc] initWithCapacity:[readItems count]];
-    for (unsigned int i = 0; i < [readItems count]; i++) {
-        NSString *link = [readItems objectAtIndex:i];
+    NSMutableArray *newReadItems = [[NSMutableArray alloc] initWithCapacity:readItems.count];
+    for (unsigned int i = 0; i < readItems.count; i++) {
+        NSString *link = readItems[i];
         bool found = false;
-        for (unsigned int j = 0; j < [items count]; j++) {
-            if ([link isEqualToString:[[items objectAtIndex:j] objectForKey:@"link"]]) {
+        for (unsigned int j = 0; j < items.count; j++) {
+            if ([link isEqualToString:items[j][@"link"]]) {
                 found = true;
                 break;
             }
@@ -570,14 +565,14 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
         }
     }
     readItems = newReadItems;
-    [[NSUserDefaults standardUserDefaults] setObject:readItems forKey:DEFAULTS_KEY_READ_ITEMS];
+    [NSUserDefaults.standardUserDefaults setObject:readItems forKey:DEFAULTS_KEY_READ_ITEMS];
     
     // Clean up notification center based on our new allItems list.
-    NSArray *notifications = [NSUserNotificationCenter defaultUserNotificationCenter].deliveredNotifications;
+    NSArray *notifications = NSUserNotificationCenter.defaultUserNotificationCenter.deliveredNotifications;
     for (NSUserNotification *n in notifications) {
         NSString *link = n.userInfo[@"link"];
         if (![allItems containsObject:link] || [readItems containsObject:link]) {
-            [[NSUserNotificationCenter defaultUserNotificationCenter] removeDeliveredNotification:n];
+            [NSUserNotificationCenter.defaultUserNotificationCenter removeDeliveredNotification:n];
         }
     }
     
@@ -591,30 +586,30 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 -(void)openUrlFromItem:(NSNumber *)index
 {
     // Get the item by index
-    NSDictionary *msg = [items objectAtIndex:[index unsignedIntValue]];
+    NSDictionary *msg = items[index.unsignedIntValue];
     // Get the link for the item
-    NSString *link = [msg objectForKey:@"link"];
+    NSString *link = msg[@"link"];
     
     [self openLink:link];
 }
 
 - (void)openLink:(NSString*)link {
     // Open the link in the user's default browser
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:link]];
+    [NSWorkspace.sharedWorkspace openURL:[NSURL URLWithString:link]];
     // Add this item to our local read items list and store it
     NSMutableArray *r = [NSMutableArray arrayWithArray:readItems];
     [r addObject:link];
     readItems = r;
-    [[NSUserDefaults standardUserDefaults] setObject:readItems forKey:DEFAULTS_KEY_READ_ITEMS];
+    [NSUserDefaults.standardUserDefaults setObject:readItems forKey:DEFAULTS_KEY_READ_ITEMS];
     // Update the menu since we now have one fewer unread item
     [self resetMenu];
 }
 
 - (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification
 {
-    NSString *link = [notification.userInfo objectForKey:@"link"];
+    NSString *link = notification.userInfo[@"link"];
     [self openLink:link];
-    [[NSUserNotificationCenter defaultUserNotificationCenter] removeDeliveredNotification:notification];
+    [NSUserNotificationCenter.defaultUserNotificationCenter removeDeliveredNotification:notification];
 }
 
 -(void)changeStartAtLogin

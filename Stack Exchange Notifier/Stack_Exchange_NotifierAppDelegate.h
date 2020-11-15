@@ -40,10 +40,6 @@
     time_t lastCheck;
     // Error message if we got an error reading the inbox
     NSString *lastCheckError;
-    // Whether notifications are enabled
-    BOOL notificationsEnabled;
-    // Whether OS X notifications are enabled
-    BOOL osNotificationsEnabled;
     // Default hide time (minutes)
     long hideIconTime;
     // Icons when no messages

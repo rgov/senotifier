@@ -32,7 +32,6 @@
 		3735E9F816A5366E0036E6D5 /* senotifier_inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 3735E9F516A5366E0036E6D5 /* senotifier_inactive.png */; };
 		3735E9F916A5366E0036E6D5 /* senotifier.png in Resources */ = {isa = PBXBuildFile; fileRef = 3735E9F616A5366E0036E6D5 /* senotifier.png */; };
 		3735EA0916A692B10036E6D5 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 3735EA0816A692B10036E6D5 /* dsa_pub.pem */; };
-		37F9D5FE14D5F39C00DA4B70 /* NSString+html.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F9D5FD14D5F39C00DA4B70 /* NSString+html.m */; };
 		37F9D60214DA7D2300DA4B70 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 37F9D60114DA7D2300DA4B70 /* Credits.html */; };
 		62467FBEFCEF0D87E6343159 /* Pods_Stack_Exchange_Notifier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 231635F4376260399055BFB8 /* Pods_Stack_Exchange_Notifier.framework */; };
 /* End PBXBuildFile section */
@@ -72,8 +71,6 @@
 		3735E9F516A5366E0036E6D5 /* senotifier_inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = senotifier_inactive.png; sourceTree = "<group>"; };
 		3735E9F616A5366E0036E6D5 /* senotifier.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = senotifier.png; sourceTree = "<group>"; };
 		3735EA0816A692B10036E6D5 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
-		37F9D5FC14D5F39C00DA4B70 /* NSString+html.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+html.h"; sourceTree = "<group>"; };
-		37F9D5FD14D5F39C00DA4B70 /* NSString+html.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+html.m"; sourceTree = "<group>"; };
 		37F9D60114DA7D2300DA4B70 /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 		EC2D3145AA6B5DEA66C673A1 /* Pods-Stack Exchange Notifier.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stack Exchange Notifier.release.xcconfig"; path = "Target Support Files/Pods-Stack Exchange Notifier/Pods-Stack Exchange Notifier.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -137,8 +134,6 @@
 				3735B1CE14D3CF95002B0428 /* Stack_Exchange_NotifierAppDelegate.h */,
 				3735B1CF14D3CF95002B0428 /* Stack_Exchange_NotifierAppDelegate.m */,
 				37250415152F9D2100D5193A /* icon.icns */,
-				37F9D5FC14D5F39C00DA4B70 /* NSString+html.h */,
-				37F9D5FD14D5F39C00DA4B70 /* NSString+html.m */,
 				3735B1D114D3CF95002B0428 /* MainMenu.xib */,
 				3735E9F416A5366E0036E6D5 /* senotifier_inactive_alt.png */,
 				3735E9F516A5366E0036E6D5 /* senotifier_inactive.png */,
@@ -261,10 +256,12 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Stack Exchange Notifier/Pods-Stack Exchange Notifier-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/DBGHTMLEntities/DBGHTMLEntities.framework",
 				"${PODS_ROOT}/Sparkle/Sparkle.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DBGHTMLEntities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -303,7 +300,6 @@
 			files = (
 				3735B1C914D3CF94002B0428 /* main.m in Sources */,
 				3735B1D014D3CF95002B0428 /* Stack_Exchange_NotifierAppDelegate.m in Sources */,
-				37F9D5FE14D5F39C00DA4B70 /* NSString+html.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

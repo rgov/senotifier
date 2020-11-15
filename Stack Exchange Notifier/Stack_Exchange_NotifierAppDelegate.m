@@ -7,8 +7,8 @@
 //
 
 #import "Stack_Exchange_NotifierAppDelegate.h"
-#import "Sparkle/Sparkle.h"
-#include "NSString+html.h"
+#import <Sparkle/Sparkle.h>
+
 
 // API client key, specific to each API client
 // (don't use this one, register to get your own
@@ -174,12 +174,18 @@ NSStatusItem *createStatusItem(NSImage* icon)
 void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 {
     NSFont *font = highlight ? [NSFont menuBarFontOfSize:0.0] : [NSFont menuBarFontOfSize:0.0];
+   
     NSDictionary *attrs = [[NSDictionary alloc] initWithObjectsAndKeys:
         font, NSFontAttributeName,
         [NSNumber numberWithFloat:(highlight ? -4.0 : 0.0)], NSStrokeWidthAttributeName,
         nil];
-    NSAttributedString *at = [[NSAttributedString alloc] initWithString:[[msg objectForKey:@"body"] stringByDecodingXMLEntities] attributes:attrs];
-    [menuitem setAttributedTitle:at];
+    
+    NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:[msg objectForKey:@"body"]
+                                                                              attributes:attrs];
+    
+    DBGHTMLEntityDecoder *htmlEntityDecoder = [[DBGHTMLEntityDecoder alloc] init];
+    [htmlEntityDecoder decodeStringInPlace:title.mutableString];
+    [menuitem setAttributedTitle:title];
 }
 
 @implementation Stack_Exchange_NotifierAppDelegate {
@@ -237,13 +243,15 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     [menu addItem:[[NSMenuItem alloc] initWithTitle:@"Check Now" action:@selector(checkInbox) keyEquivalent:@""]];
     
     [menu addItem:[NSMenuItem separatorItem]];
-    
+        
     unsigned int unread = 0;
     targets = [NSMutableArray arrayWithCapacity:[items count]];
     if ([items count] > 0) {
         unsigned int i = 0;
         for (NSDictionary *obj in [items objectEnumerator]) {
-            NSMenuItem *it = [[NSMenuItem alloc] initWithTitle:[[obj objectForKey:@"body"] stringByDecodingXMLEntities] action:@selector(fire) keyEquivalent:@""];
+            NSMenuItem *it = [[NSMenuItem alloc] initWithTitle:[htmlEntityDecoder decodeString:[obj objectForKey:@"body"]]
+                                                        action:@selector(fire)
+                                                 keyEquivalent:@""];
             bool read = [readItems containsObject:[obj objectForKey:@"link"]];
             setMenuItemTitle(it, obj, !read);
             if (!read) {
@@ -358,6 +366,9 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
                                   pathForResource:@"senotifier.png" 
                                   ofType:nil]];
 
+    // initialize the shared HTML entity decoder
+    htmlEntityDecoder = [[DBGHTMLEntityDecoder alloc] init];
+    
     // create the status bar item
     statusItem = createStatusItem(inactiveIcon);
     [self resetMenu];
@@ -574,6 +585,8 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     
     // Get the unread inbox items according to the server.
     items = [r objectForKey:@"items"];
+    
+    
 
     // First copy all server items into our local copy, notifying for each new one
     NSMutableArray *newAllItems = [[NSMutableArray alloc] initWithCapacity:[items count]];
@@ -582,7 +595,7 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
         if (![allItems containsObject:link]) {
             NSUserNotification *notification = [[NSUserNotification alloc] init];
             notification.title = [[item objectForKey:@"site"] objectForKey:@"name"];
-            notification.informativeText = [[item objectForKey:@"body"] stringByDecodingXMLEntities];
+            notification.informativeText = [htmlEntityDecoder decodeString:[item objectForKey:@"body"]];
             notification.soundName = NSUserNotificationDefaultSoundName;
             notification.userInfo = @{@"link": item[@"link"]};
 

@@ -10,6 +10,9 @@
 #import <WebKit/WebKit.h>
 #import <Foundation/Foundation.h>
 
+#import <DBGHTMLEntities/DBGHTMLEntityDecoder.h>
+
+
 @interface Stack_Exchange_NotifierAppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate> {
     NSWindow *__unsafe_unretained window;
     // Timer for periodically updating the menu ("checked n minutes ago")
@@ -47,6 +50,8 @@
     NSImage *inactiveIconAlt;
     // Icon when 1+ messages
     NSImage *activeIcon;
+    // Shared HTML entity decoder
+    DBGHTMLEntityDecoder *htmlEntityDecoder;
 }
 
 @property (unsafe_unretained) IBOutlet NSWindow *window;

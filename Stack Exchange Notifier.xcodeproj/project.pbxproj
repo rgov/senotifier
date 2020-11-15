@@ -44,11 +44,11 @@
 		3735E9F816A5366E0036E6D5 /* senotifier_inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = 3735E9F516A5366E0036E6D5 /* senotifier_inactive.png */; };
 		3735E9F916A5366E0036E6D5 /* senotifier.png in Resources */ = {isa = PBXBuildFile; fileRef = 3735E9F616A5366E0036E6D5 /* senotifier.png */; };
 		3735EA0616A66CB30036E6D5 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3735EA0516A66CB30036E6D5 /* Sparkle.framework */; };
-		3735EA0716A66CE70036E6D5 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3735EA0516A66CB30036E6D5 /* Sparkle.framework */; };
+		3735EA0716A66CE70036E6D5 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3735EA0516A66CB30036E6D5 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		3735EA0916A692B10036E6D5 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 3735EA0816A692B10036E6D5 /* dsa_pub.pem */; };
 		37F54B5814FD4ECD003F4E0D /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = 37F54B5714FD4ECD003F4E0D /* Growl Registration Ticket.growlRegDict */; };
 		37F54B5A14FE9F70003F4E0D /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37F54B5914FE9F70003F4E0D /* Growl.framework */; };
-		37F54B5B14FE9F8E003F4E0D /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 37F54B5914FE9F70003F4E0D /* Growl.framework */; };
+		37F54B5B14FE9F8E003F4E0D /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 37F54B5914FE9F70003F4E0D /* Growl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		37F9D5FE14D5F39C00DA4B70 /* NSString+html.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F9D5FD14D5F39C00DA4B70 /* NSString+html.m */; };
 		37F9D60214DA7D2300DA4B70 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 37F9D60114DA7D2300DA4B70 /* Credits.html */; };
 /* End PBXBuildFile section */
@@ -68,6 +68,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2A00AFCF2560B323007DD071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		37250415152F9D2100D5193A /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		3735B1B814D3CF94002B0428 /* Stack Exchange Notifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stack Exchange Notifier.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3735B1BC14D3CF94002B0428 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -80,7 +81,6 @@
 		3735B1CA14D3CF95002B0428 /* Stack Exchange Notifier-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Stack Exchange Notifier-Prefix.pch"; sourceTree = "<group>"; };
 		3735B1CE14D3CF95002B0428 /* Stack_Exchange_NotifierAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Stack_Exchange_NotifierAppDelegate.h; sourceTree = "<group>"; };
 		3735B1CF14D3CF95002B0428 /* Stack_Exchange_NotifierAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Stack_Exchange_NotifierAppDelegate.m; sourceTree = "<group>"; };
-		3735B1D214D3CF95002B0428 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		3735B1DA14D3CF95002B0428 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		3735B1F114D4B57A002B0428 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		3735B1F414D50BD6002B0428 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
@@ -266,14 +266,15 @@
 		3735B1AF14D3CF94002B0428 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 1220;
 			};
 			buildConfigurationList = 3735B1B214D3CF94002B0428 /* Build configuration list for PBXProject "Stack Exchange Notifier" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 3735B1AD14D3CF94002B0428;
 			productRefGroup = 3735B1B914D3CF94002B0428 /* Products */;
@@ -317,7 +318,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\ndmg=\"$BUILT_PRODUCTS_DIR/`echo $PROJECT_NAME | tr A-Z' ' a-z-`.dmg\"\nrm $dmg\nhdiutil create -srcfolder \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app\" $dmg\ncp $dmg ~/docs/hewgill.com/senotifier/";
+			shellScript = "set -e\n\ndmg=\"$BUILT_PRODUCTS_DIR/`echo $PROJECT_NAME | tr A-Z' ' a-z-`.dmg\"\nrm $dmg\nhdiutil create -srcfolder \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app\" $dmg\ncp $dmg ~/docs/hewgill.com/senotifier/\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -358,7 +359,7 @@
 		3735B1D114D3CF95002B0428 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				3735B1D214D3CF95002B0428 /* en */,
+				2A00AFCF2560B323007DD071 /* Base */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -370,11 +371,32 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -385,6 +407,9 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
@@ -396,15 +421,38 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
@@ -415,16 +463,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "-";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Stack Exchange Notifier\"",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/sparkle\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Stack Exchange Notifier/Stack Exchange Notifier-Prefix.pch";
 				INFOPLIST_FILE = "Stack Exchange Notifier/Stack Exchange Notifier-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "hewgill.com.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
@@ -435,16 +484,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "-";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Stack Exchange Notifier\"",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/sparkle\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Stack Exchange Notifier/Stack Exchange Notifier-Prefix.pch";
 				INFOPLIST_FILE = "Stack Exchange Notifier/Stack Exchange Notifier-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "hewgill.com.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
@@ -454,6 +504,7 @@
 		37F9D60514DFC7B100DA4B70 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -461,6 +512,7 @@
 		37F9D60614DFC7B100DA4B70 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

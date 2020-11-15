@@ -28,7 +28,6 @@ NSString *DEFAULTS_KEY_READ_ITEMS = @"com.hewgill.senotifier.readitems";
 
 NSString *minutesToString(long minutes);
 NSString *timeAgo(time_t t);
-NSStatusItem *createStatusItem(NSImage* icon);
 void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight);
 
 // Format a number of minutes as a string

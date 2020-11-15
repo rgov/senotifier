@@ -188,7 +188,6 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     SUUpdater *sparkleUpdater;
 }
 
-@synthesize window;
 
 // Called just before the menu opens to show the
 // amount of time since the last check. Also shows error messages
@@ -307,7 +306,7 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 -(void)doLogin
 {
     [NSApp activateIgnoringOtherApps:YES];
-    [window makeKeyAndOrderFront:self];
+    [self.window makeKeyAndOrderFront:self];
     // this URL includes the
     //     client_id = 81 (specific to this application)
     //     scope = read_inbox (tell the user we want to read their inbox contents)
@@ -353,8 +352,8 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     [self resetMenu];
 
     // create the web view that we will use for login
-    web = [[WebView alloc] initWithFrame:window.frame];
-    window.contentView = web;
+    web = [[WebView alloc] initWithFrame:self.window.frame];
+    self.window.contentView = web;
     web.frameLoadDelegate = self;
     
     NSUserNotificationCenter.defaultUserNotificationCenter.delegate = self;
@@ -422,7 +421,7 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     [[NSAlert alertWithError:error] runModal];
     // There isn't anything on the web page for the user to interact with
     // at this point, so close the view.
-    window.isVisible = NO;
+    self.window.isVisible = NO;
 }
 
 // Called from the WebView when there is an error of some kind
@@ -468,7 +467,7 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     }
     access_token = [fragment substringWithRange:NSMakeRange(r.location, e.location - r.location)];
     // Close the window, we're done with it.
-    window.isVisible = NO;
+    self.window.isVisible = NO;
     // Clear any login error, since it succeeded this time.
     loginError = nil;
     // Finally, check the inbox now that we're logged in.

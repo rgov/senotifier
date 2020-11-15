@@ -14,7 +14,7 @@
 
 
 @interface Stack_Exchange_NotifierAppDelegate : NSObject <NSApplicationDelegate, NSMenuDelegate, NSUserNotificationCenterDelegate, WebFrameLoadDelegate> {
-    NSWindow *__unsafe_unretained window;
+    
     // Timer for checking the inbox every 5 minutes
     NSTimer *checkInboxTimer;
     // The menu attached to the status bar item
@@ -50,6 +50,6 @@
     DBGHTMLEntityDecoder *htmlEntityDecoder;
 }
 
-@property (unsafe_unretained) IBOutlet NSWindow *window;
+@property (strong) IBOutlet NSWindow *window;
 
 @end

@@ -65,6 +65,7 @@
 
 /* Begin PBXFileReference section */
 		2A00AFCF2560B323007DD071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		2A00AFD92560B6F8007DD071 /* appcast.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = appcast.xml; path = "Stack Exchange Notifier/appcast.xml"; sourceTree = SOURCE_ROOT; };
 		37250415152F9D2100D5193A /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		3735B1B814D3CF94002B0428 /* Stack Exchange Notifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stack Exchange Notifier.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3735B1BC14D3CF94002B0428 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -188,6 +189,7 @@
 		3735B1C314D3CF94002B0428 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2A00AFD92560B6F8007DD071 /* appcast.xml */,
 				3735EA0816A692B10036E6D5 /* dsa_pub.pem */,
 				3735B1C414D3CF94002B0428 /* Stack Exchange Notifier-Info.plist */,
 				3735B1C514D3CF94002B0428 /* InfoPlist.strings */,

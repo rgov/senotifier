@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
-        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -13,17 +12,6 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Stack Exchange Notifier" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="371">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="480" height="360"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
-            <view key="contentView" id="372">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
-                <autoresizingMask key="autoresizingMask"/>
-            </view>
-            <point key="canvasLocation" x="-121" y="296"/>
-        </window>
         <menu title="Stack Exchange Notifier" id="Aqm-bV-5ZG">
             <items>
                 <menuItem title="No unread messages" enabled="NO" id="iN6-Uw-3bz">
@@ -120,7 +108,6 @@
                 <outlet property="menu" destination="Aqm-bV-5ZG" id="pxJ-mX-02f"/>
                 <outlet property="noUnreadMessagesMenuitem" destination="iN6-Uw-3bz" id="s1p-26-eZm"/>
                 <outlet property="startAtLoginMenuItem" destination="q3H-2C-RQf" id="RFu-Y2-pu2"/>
-                <outlet property="window" destination="371" id="532"/>
             </connections>
         </customObject>
         <customObject id="420" customClass="NSFontManager"/>

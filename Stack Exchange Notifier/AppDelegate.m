@@ -14,10 +14,7 @@
 
 
 
-// API client key, specific to each API client
-// (don't use this one, register to get your own
-// at http://stackapps.com/apps/oauth/register )
-NSString *CLIENT_KEY = @"JBpdN2wRVnHTq9E*uuyTPQ((";
+
 // Name of key to store all items in defaults
 NSString *DEFAULTS_KEY_ALL_ITEMS = @"com.hewgill.senotifier.allitems";
 // Name of key to store read items in defaults
@@ -282,14 +279,6 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 // Open a window to log in to Stack Exchange.
 -(void)doLogin
 {
-    [NSApp activateIgnoringOtherApps:YES];
-    [self.window makeKeyAndOrderFront:self];
-    // this URL includes the
-    //     client_id = 81 (specific to this application)
-    //     scope = read_inbox (tell the user we want to read their inbox contents)
-    //             no_expiry (request a token with indefinite expiration date)
-    //     redirect_uri = where to send the browser when authentication succeeds
-    [[self.webview mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://stackexchange.com/oauth/dialog?client_id=81&scope=read_inbox,no_expiry&redirect_uri=https://stackexchange.com/oauth/login_success"]]];
 }
 
 // MARK: -
@@ -300,6 +289,9 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     lastCheck = 0;
     loginError = nil;
     lastCheckError = nil;
+    
+    api = [[StackExchangeAPI alloc] init];
+    [api getUnreadMessages];
 
     // read the list of all items from defaults
     allItems = [NSUserDefaults.standardUserDefaults arrayForKey:DEFAULTS_KEY_ALL_ITEMS];
@@ -316,14 +308,6 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     statusItem.button.alternateImage = [NSImage imageNamed:@"menu_clicked"];
     statusItem.menu = self.menu;
 
-    // Create the WebView used for logging in
-#if __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_12
-#warning The WebView can be created in MainMenu.xib now
-#endif
-    self.webview = [[WebView alloc] initWithFrame:self.window.frame];
-    self.webview.frameLoadDelegate = self;
-    self.window.contentView = self.webview;
-    
     NSUserNotificationCenter.defaultUserNotificationCenter.delegate = self;
 
     // kick off a login procedure
@@ -340,11 +324,9 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 {
     lastCheckError = nil;
     
-    // Ask for new inbox items from the server. Use "withbody"
-    // filter to get a small bit of the body text (to display
-    // in the menu).
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.stackexchange.com/2.0/inbox/unread?access_token=%@&key=%@&filter=withbody", access_token, CLIENT_KEY]];
+    // Ask for new inbox items from the server. 
     
+    /*
     [[NSURLSession.sharedSession dataTaskWithURL:url completionHandler:
       ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
 #if DEBUG
@@ -361,87 +343,7 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
             [self gotInboxStatus:data];
         });
     }] resume];
-}
-
-// Invalidate login token on the server. Might help with debugging.
--(void)invalidate
-{
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.stackexchange.com/2.0/access-tokens/%@/invalidate", access_token]];
-    
-    [[NSURLSession.sharedSession dataTaskWithURL:url completionHandler:
-      ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-#if DEBUG
-        NSLog(@"Response: %@", [NSString stringWithUTF8String:data.bytes]);
-#endif
-        
-        if (error) {
-            [[NSAlert alertWithError:error] runModal];
-        } else {
-          NSLog(@"Invalidated login token.");
-        }
-    }] resume];
-}
-
-// Called from the WebView when there is an error of some kind
-// and we can't reach the server.
--(void)webView:(WebView *)sender didFailProvisionalLoadWithError:(NSError *)error forFrame:(WebFrame *)frame
-{
-    loginError = error.localizedDescription;
-
-    [[NSAlert alertWithError:error] runModal];
-    // There isn't anything on the web page for the user to interact with
-    // at this point, so close the view.
-    self.window.isVisible = NO;
-}
-
-// Called from the WebView when there is an error of some kind
-// during the login process.
--(void)webView:(WebView *)sender didFailLoadWithError:(NSError *)error forFrame:(WebFrame *)frame
-{
-    // Ignore NSURLErrorCancelled because that may happen during normal operation,
-    // see http://stackoverflow.com/questions/1024748
-    if (error.code == NSURLErrorCancelled) {
-        return;
-    }
-    loginError = error.localizedDescription;
-    [[NSAlert alertWithError:error] runModal];
-    // There might be something the user wants to read in this case,
-    // so don't close the view.
-    //window.isVisible = NO;
-}
-
-// Finished the login process. The server sends the browser to
-// the URL specified in the login request ("redirect_uri" in doLogin)
-// so we detect that specific URL and get the authentication token.
--(void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame
-{
-    // Get the current URL from the frame.
-    NSURL *url = frame.dataSource.request.URL;
-    NSLog(@"finished loading %@", url.absoluteString);
-    // Make sure we've ended up at the "login success" page
-    if (![[url absoluteString] hasPrefix:@"https://stackexchange.com/oauth/login_success"]) {
-        loginError = @"Error logging in to Stack Exchange.";
-        return;
-    }
-    // Extract the access_token value from the URL
-    NSString *fragment = [url fragment];
-    NSRange r = [fragment rangeOfString:@"access_token="];
-    if (r.location == NSNotFound) {
-        loginError = @"Access token not found on login.";
-        return;
-    }
-    r.location += 13;
-    NSRange e = [fragment rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"&"]];
-    if (e.location == NSNotFound) {
-        e.location = fragment.length;
-    }
-    access_token = [fragment substringWithRange:NSMakeRange(r.location, e.location - r.location)];
-    // Close the window, we're done with it.
-    self.window.isVisible = NO;
-    // Clear any login error, since it succeeded this time.
-    loginError = nil;
-    // Finally, check the inbox now that we're logged in.
-    [self checkInbox];
+     */
 }
 
 // Finished receiving and API response. Parse the JSON and
@@ -571,7 +473,7 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 }
 
 - (IBAction)logout:(id)sender {
-    [self invalidate];
+    [api invalidateAccessToken];
 }
 
 - (IBAction)showAbout:(id)sender {

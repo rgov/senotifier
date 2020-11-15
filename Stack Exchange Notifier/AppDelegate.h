@@ -12,15 +12,17 @@
 
 #import <DBGHTMLEntities/DBGHTMLEntityDecoder.h>
 
+#import "Stack_Exchange_Notifier-Swift.h"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate, NSMenuDelegate, NSUserNotificationCenterDelegate, WebFrameLoadDelegate> {
+
+@interface AppDelegate : NSObject <NSApplicationDelegate, NSMenuDelegate, NSUserNotificationCenterDelegate> {
+    
+    StackExchangeAPI *api;
     
     // Timer for checking the inbox every 5 minutes
     NSTimer *checkInboxTimer;
     // The status bar item itself
     NSStatusItem *statusItem;
-    // Access token stored from the login procedure
-    NSString *access_token;
     // Array of all items that we've seen from the server
     NSArray *allItems;
     // Array of items already marked as "read"
@@ -38,10 +40,6 @@
     // Shared HTML entity decoder
     DBGHTMLEntityDecoder *htmlEntityDecoder;
 }
-
-@property (strong) IBOutlet NSWindow *window;
-
-@property (strong) IBOutlet WebView *webview;
 
 @property (strong) IBOutlet NSMenu *menu;
 @property (weak) IBOutlet NSMenuItem *noUnreadMessagesMenuItem;

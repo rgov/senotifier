@@ -25,8 +25,6 @@
     WebView *web;
     // Access token stored from the login procedure
     NSString *access_token;
-    // Accumulated received data from an API request
-    NSMutableData *receivedData;
     // Array of all items that we've seen from the server
     NSArray *allItems;
     // Array of items already marked as "read"

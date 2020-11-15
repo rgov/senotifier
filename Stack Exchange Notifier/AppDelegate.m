@@ -381,23 +381,43 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     // Ask for new inbox items from the server. Use "withbody"
     // filter to get a small bit of the body text (to display
     // in the menu).
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api.stackexchange.com/2.0/inbox/unread?access_token=%@&key=%@&filter=withbody", access_token, CLIENT_KEY]]];
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    if (conn) {
-        receivedData = [NSMutableData data];
-    } else {
-        NSLog(@"failed to create connection");
-    }
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.stackexchange.com/2.0/inbox/unread?access_token=%@&key=%@&filter=withbody", access_token, CLIENT_KEY]];
+    
+    [[NSURLSession.sharedSession dataTaskWithURL:url completionHandler:
+      ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+#if DEBUG
+        NSLog(@"Response: %@", [NSString stringWithUTF8String:data.bytes]);
+#endif
+        
+        if (error) {
+            self->lastCheckError = error.localizedDescription;
+            return;
+        }
+        
+        // Call the -gotInboxStatus handler on the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self gotInboxStatus:data];
+        });
+    }] resume];
 }
 
 // Invalidate login token on the server. Might help with debugging.
 -(void)invalidate
 {
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api.stackexchange.com/2.0/access-tokens/%@/invalidate", access_token]]];
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:nil];
-    if (conn == nil) {
-        NSLog(@"failed to create connection");
-    }
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://api.stackexchange.com/2.0/access-tokens/%@/invalidate", access_token]];
+    
+    [[NSURLSession.sharedSession dataTaskWithURL:url completionHandler:
+      ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+#if DEBUG
+        NSLog(@"Response: %@", [NSString stringWithUTF8String:data.bytes]);
+#endif
+        
+        if (error) {
+            [[NSAlert alertWithError:error] runModal];
+        } else {
+          NSLog(@"Invalidated login token.");
+        }
+    }] resume];
 }
 
 // Arrivederci.
@@ -468,27 +488,9 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     [self checkInbox];
 }
 
-// Connection error of some kind when sending inbox request.
--(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    lastCheckError = error.localizedDescription;
-}
-
-// Started to receive an API response from the server.
--(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-    receivedData.length = 0;
-}
-
-// Received some more data from the server for an API request.
--(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    [receivedData appendData:data];
-}
-
 // Finished receiving and API response. Parse the JSON and
 // reset the menu.
--(void)connectionDidFinishLoading:(NSURLConnection *)connection
+-(void)gotInboxStatus:(NSData *)receivedData
 {
     // Parse the JSON response to the API request
     id r = [NSJSONSerialization JSONObjectWithData:receivedData options:0 error:nil];
@@ -496,14 +498,6 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
         lastCheckError = @"JSON parse error";
         return;
     }
-    
-#if DEBUG
-    // Write the prettified response to the log for debugging
-    NSData *prettyJSON = [NSJSONSerialization dataWithJSONObject:r
-                                                         options:NSJSONWritingPrettyPrinted
-                                                           error:nil];
-    NSLog(@"json %@", [NSString stringWithUTF8String:prettyJSON.bytes]);
-#endif
     
     // If we got an error, try logging in again.
     if (r[@"error_id"]) {
@@ -537,7 +531,7 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
         [newAllItems addObject:link];
     }
     allItems = newAllItems;
-    [[NSUserDefaults standardUserDefaults] setObject:allItems forKey:DEFAULTS_KEY_ALL_ITEMS];
+    [NSUserDefaults.standardUserDefaults setObject:allItems forKey:DEFAULTS_KEY_ALL_ITEMS];
     
     // We only need to keep the "read" items in our local defaults
     // list for those items where the server still thinks they're

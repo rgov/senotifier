@@ -13,10 +13,8 @@
 #import <DBGHTMLEntities/DBGHTMLEntityDecoder.h>
 
 
-@interface Stack_Exchange_NotifierAppDelegate : NSObject <NSApplicationDelegate, NSUserNotificationCenterDelegate, WebFrameLoadDelegate> {
+@interface Stack_Exchange_NotifierAppDelegate : NSObject <NSApplicationDelegate, NSMenuDelegate, NSUserNotificationCenterDelegate, WebFrameLoadDelegate> {
     NSWindow *__unsafe_unretained window;
-    // Timer for periodically updating the menu ("checked n minutes ago")
-    NSTimer *menuUpdateTimer;
     // Timer for checking the inbox every 5 minutes
     NSTimer *checkInboxTimer;
     // The menu attached to the status bar item

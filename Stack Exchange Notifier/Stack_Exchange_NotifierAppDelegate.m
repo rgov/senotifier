@@ -194,10 +194,10 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 
 @synthesize window;
 
-// Update the menu periodically (every 30 seconds) to show the
+// Called just before the menu opens to show the
 // amount of time since the last check. Also shows error messages
 // if available.
--(void)updateMenu
+-(void)menuWillOpen:(NSMenu *)menu;
 {
     NSDictionary *normalattrs = [[NSDictionary alloc] initWithObjectsAndKeys:
         [NSFont menuBarFontOfSize:0.0], NSFontAttributeName,
@@ -238,6 +238,8 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 -(void)resetMenu
 {
     menu = [[NSMenu alloc] initWithTitle:@""];
+    [menu setDelegate:self];
+    
     [menu addItem:[[NSMenuItem alloc] initWithTitle:@"About" action:@selector(showAbout) keyEquivalent:@""]];
     [menu addItem:[[NSMenuItem alloc] initWithTitle:@"Log in" action:@selector(doLogin) keyEquivalent:@""]];
     [menu addItem:[[NSMenuItem alloc] initWithTitle:@"Check Now" action:@selector(checkInbox) keyEquivalent:@""]];
@@ -299,9 +301,6 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     check_updates.target = sparkleUpdater;
     [menu addItem:check_updates];
     [menu addItem:[[NSMenuItem alloc] initWithTitle:@"Quit" action:@selector(quit) keyEquivalent:@""]];
-
-    // update annotations such as "checked n minutes ago"
-    [self updateMenu];
     
     if (statusItem != nil) {
         // if there are any unread items, display that number on the status bar
@@ -383,8 +382,7 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     // kick off a login procedure
     [self doLogin];
 
-    // set up the timers
-    menuUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(updateMenu) userInfo:nil repeats:YES];
+    // set up the timer
     checkInboxTimer = [NSTimer scheduledTimerWithTimeInterval:300 target:self selector:@selector(checkInbox) userInfo:nil repeats:YES];
 }
 
@@ -406,7 +404,7 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
         return;
     }
     lastCheckError = nil;
-    [self updateMenu];
+    
     // Ask for new inbox items from the server. Use "withbody"
     // filter to get a small bit of the body text (to display
     // in the menu).
@@ -474,7 +472,7 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 -(void)webView:(WebView *)sender didFailProvisionalLoadWithError:(NSError *)error forFrame:(WebFrame *)frame
 {
     loginError = [error localizedDescription];
-    [self updateMenu];
+    
     [[NSAlert alertWithError:error] runModal];
     // There isn't anything on the web page for the user to interact with
     // at this point, so close the view.
@@ -491,7 +489,6 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
         return;
     }
     loginError = [error localizedDescription];
-    [self updateMenu];
     [[NSAlert alertWithError:error] runModal];
     // There might be something the user wants to read in this case,
     // so don't close the view.
@@ -536,7 +533,6 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     lastCheckError = [error localizedDescription];
-    [self updateMenu];
 }
 
 // Started to receive an API response from the server.
@@ -559,7 +555,6 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     id r = [NSJSONSerialization JSONObjectWithData:receivedData options:0 error:nil];
     if (r == nil) {
         lastCheckError = @"JSON parse error";
-        [self updateMenu];
         return;
     }
     
@@ -579,7 +574,6 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
          && [(NSString *)[r objectForKey:@"error_message"] compare:@"expired"] == NSOrderedSame) {
             [self doLogin];
         }
-        [self updateMenu];
         return;
     }
     

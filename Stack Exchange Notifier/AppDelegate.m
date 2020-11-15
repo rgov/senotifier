@@ -291,7 +291,6 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     lastCheckError = nil;
     
     api = [[StackExchangeAPI alloc] init];
-    [api getUnreadMessages];
 
     // read the list of all items from defaults
     allItems = [NSUserDefaults.standardUserDefaults arrayForKey:DEFAULTS_KEY_ALL_ITEMS];
@@ -322,57 +321,21 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 // (we wouldn't show the menu items anyway in that state).
 -(void)checkInbox
 {
-    lastCheckError = nil;
-    
-    // Ask for new inbox items from the server. 
-    
-    /*
-    [[NSURLSession.sharedSession dataTaskWithURL:url completionHandler:
-      ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-#if DEBUG
-        NSLog(@"Response: %@", [NSString stringWithUTF8String:data.bytes]);
-#endif
+    // Ask for new inbox items from the server
+    [api getUnreadMessages:^(NSArray *unreadMessages) {
+        self->allItems = unreadMessages;
+        NSLog(@"%@", self->allItems);
         
-        if (error) {
-            self->lastCheckError = error.localizedDescription;
-            return;
-        }
-        
-        // Call the -gotInboxStatus handler on the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self gotInboxStatus:data];
+            [self gotInboxStatus];
         });
-    }] resume];
-     */
+    }];
 }
 
 // Finished receiving and API response. Parse the JSON and
 // reset the menu.
--(void)gotInboxStatus:(NSData *)receivedData
+-(void)gotInboxStatus
 {
-    // Parse the JSON response to the API request
-    id r = [NSJSONSerialization JSONObjectWithData:receivedData options:0 error:nil];
-    if (r == nil) {
-        lastCheckError = @"JSON parse error";
-        return;
-    }
-    
-    // If we got an error, try logging in again.
-    if (r[@"error_id"]) {
-        lastCheckError = r[@"error_name"];
-        // only auto-login if we got an expired access token (which is expected)
-        if ([lastCheckError compare:@"invalid_access_token"] == NSOrderedSame
-         && [(NSString *)r[@"error_message"] compare:@"expired"] == NSOrderedSame) {
-            [self login:self];
-        }
-        return;
-    }
-    
-    // Get the unread inbox items according to the server.
-    items = r[@"items"];
-    
-    
-
     // First copy all server items into our local copy, notifying for each new one
     NSMutableArray *newAllItems = [[NSMutableArray alloc] initWithCapacity:items.count];
     for (NSDictionary *item in items) {

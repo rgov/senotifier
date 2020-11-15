@@ -103,14 +103,14 @@ public class StackExchangeAPI: NSObject {
         oauth2.authConfig.authorizeEmbedded = true
         
         // Trace requests when running a debug build
-        //#if DEBUG
+        #if DEBUG
             oauth2.logger = OAuth2DebugLogger(.trace)
-        //#endif
+        #endif
     }
     
-    private var urlForUnreadMessages: URL? {
+    private var urlForUnreadMessages: URL {
         get {
-            return URL(string: "https://api.stackexchange.com/2.0/inbox/unread?filter=withbody")
+            return URL(string: "https://api.stackexchange.com/2.0/inbox/unread?filter=withbody")!
         }
     }
     
@@ -120,13 +120,13 @@ public class StackExchangeAPI: NSObject {
     }
     
     @objc
-    public func getUnreadMessages() {
-        let req = oauth2.request(forURL: urlForUnreadMessages!)
+    public func getUnreadMessages(_ callback: @escaping (([Any]) -> Void)) {
+        let req = oauth2.request(forURL: urlForUnreadMessages)
         loader.perform(request: req) { response in
             do {
                 let dict = try response.responseJSON()
                 DispatchQueue.main.async {
-                    print("lol \(dict)")
+                    callback(dict["items"] as! [Any])
                 }
             }
             catch let error {
@@ -139,7 +139,9 @@ public class StackExchangeAPI: NSObject {
     
     @objc
     public func invalidateAccessToken() {
+        guard (oauth2.accessToken != nil) else { return }
         let task = URLSession.shared.dataTask(with: urlForInvalidateToken!) {(data, response, error) in
+            // No matter the result, assume that the token is invalidated
             self.oauth2.forgetTokens()
         }
         task.resume()

@@ -168,17 +168,6 @@ static void setStartAtLogin(BOOL enabled)
 
 // MARK: -
 
-
-// Create the status item when needed. Called on program startup or
-// when the icon is unhidden.
-NSStatusItem *createStatusItem(NSImage* icon)
-{
-    NSStatusItem *item = [NSStatusBar.systemStatusBar statusItemWithLength:NSVariableStatusItemLength];
-    item.button.image = icon;
-    item.button.highlighted = YES;
-    return item;
-}
-
 // Utility function to set an inbox item menu item.
 void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 {
@@ -281,18 +270,13 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     // DEBUG
     int unread = 0;
     
-    if (statusItem != nil) {
-        // if there are any unread items, display that number on the status bar
-        if (unread > 0) {
-            statusItem.button.title = [NSString stringWithFormat:@"%u", unread];
-            statusItem.button.image = activeIcon;
-            statusItem.button.alternateImage = nil;
-        } else {
-            statusItem.button.title = @"";
-            statusItem.button.image = inactiveIcon;
-            statusItem.button.alternateImage = inactiveIconAlt;
-        }
-        statusItem.menu = self.menu;
+    // if there are any unread items, display that number on the status bar
+    if (unread > 0) {
+        statusItem.button.title = [NSString stringWithFormat:@"%u", unread];
+        statusItem.button.image = [NSImage imageNamed:@"menu_messages"];
+    } else {
+        statusItem.button.title = @"";
+        statusItem.button.image = [NSImage imageNamed:@"menu_no_messages"];
     }
 }
 
@@ -324,17 +308,14 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     // read the list of items already read from defaults
     readItems = [NSUserDefaults.standardUserDefaults arrayForKey:DEFAULTS_KEY_READ_ITEMS];
 
-    // setting icons
-    inactiveIcon = [NSImage imageNamed:@"senotifier_inactive"];
-    inactiveIconAlt = [NSImage imageNamed:@"senotifier_inactive_alt"];
-    activeIcon = [NSImage imageNamed:@"senotifier"];
-
     // initialize the shared HTML entity decoder
     htmlEntityDecoder = [[DBGHTMLEntityDecoder alloc] init];
     
-    // create the status bar item
-    statusItem = createStatusItem(inactiveIcon);
-    [self resetMenu];
+    // Create the status bar item
+    statusItem = [NSStatusBar.systemStatusBar statusItemWithLength:NSVariableStatusItemLength];
+    statusItem.button.image = [NSImage imageNamed:@"menu_no_messages"];
+    statusItem.button.alternateImage = [NSImage imageNamed:@"menu_clicked"];
+    statusItem.menu = self.menu;
 
     // Create the WebView used for logging in
 #if __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_12
@@ -358,9 +339,6 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 // (we wouldn't show the menu items anyway in that state).
 -(void)checkInbox
 {
-    if (statusItem == nil) {
-        return;
-    }
     lastCheckError = nil;
     
     // Ask for new inbox items from the server. Use "withbody"

@@ -17,7 +17,7 @@
     
     // Timer for checking the inbox every 5 minutes
     NSTimer *checkInboxTimer;
-    // The status bar item itself (nil if it's currently hidden)
+    // The status bar item itself
     NSStatusItem *statusItem;
     // Access token stored from the login procedure
     NSString *access_token;
@@ -35,11 +35,6 @@
     time_t lastCheck;
     // Error message if we got an error reading the inbox
     NSString *lastCheckError;
-    // Icons when no messages
-    NSImage *inactiveIcon;
-    NSImage *inactiveIconAlt;
-    // Icon when 1+ messages
-    NSImage *activeIcon;
     // Shared HTML entity decoder
     DBGHTMLEntityDecoder *htmlEntityDecoder;
 }

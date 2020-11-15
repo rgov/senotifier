@@ -210,6 +210,11 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
         SUUpdater.sharedUpdater.automaticallyChecksForUpdates ?
         NSControlStateValueOn : NSControlStateValueOff;
     
+    // Update "Start at Login" menu state
+    self.startAtLoginMenuItem.state =
+        willStartAtLogin() ?
+        NSControlStateValueOn : NSControlStateValueOff;
+    
     NSDictionary *normalattrs = @{
         NSFontAttributeName: [NSFont menuBarFontOfSize:0.0],
     };
@@ -602,12 +607,6 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     [NSUserNotificationCenter.defaultUserNotificationCenter removeDeliveredNotification:notification];
 }
 
--(void)changeStartAtLogin
-{
-    setStartAtLogin(!willStartAtLogin());
-    [self resetMenu];
-}
-
 // MARK: -
 // MARK: Menu item actions
 
@@ -648,8 +647,10 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 - (IBAction)startAtLogin:(id)sender {
     if (self.startAtLoginMenuItem.state == NSControlStateValueOff) {
         self.startAtLoginMenuItem.state = NSControlStateValueOn;
+        setStartAtLogin(YES);
     } else {
         self.startAtLoginMenuItem.state = NSControlStateValueOff;
+        setStartAtLogin(NO);
     }
 }
 

@@ -19,10 +19,6 @@ NSString *CLIENT_KEY = @"JBpdN2wRVnHTq9E*uuyTPQ((";
 NSString *DEFAULTS_KEY_ALL_ITEMS = @"com.hewgill.senotifier.allitems";
 // Name of key to store read items in defaults
 NSString *DEFAULTS_KEY_READ_ITEMS = @"com.hewgill.senotifier.readitems";
-// Name of key to store notifications enabled flag
-NSString *DEFAULTS_KEY_NOTIFICATIONS_ENABLED = @"com.hewgill.senotifier.notifications";
-// Name of key to store notifications enabled flag
-NSString *DEFAULTS_KEY_OS_NOTIFICATIONS_ENABLED = @"com.hewgill.senotifier.osnotifications";
 // Name of key to store hide icon time
 NSString *DEFAULTS_KEY_HIDE_ICON_TIME = @"com.hewgill.senotifier.hidetime";
 
@@ -276,13 +272,6 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     
     NSMenu *preferencesMenu = [[NSMenu alloc] initWithTitle:@""];
     
-    Class NSUserNotificationClass = NSClassFromString(@"NSUserNotification");
-    if (NSUserNotificationClass) {
-        NSMenuItem *enableOSNotifications = [[NSMenuItem alloc] initWithTitle:@"Enable popup notifications (OS X)" action:@selector(changeOsNotifications) keyEquivalent:@""];
-        [enableOSNotifications setState:osNotificationsEnabled ? NSOnState : NSOffState];
-        [preferencesMenu addItem:enableOSNotifications];
-    }
-    
     NSMenuItem *enableStartAtLogin = [[NSMenuItem alloc] initWithTitle:@"Start at login" action:@selector(changeStartAtLogin) keyEquivalent:@""];
     [enableStartAtLogin setState:willStartAtLogin() ? NSOnState : NSOffState];
     [preferencesMenu addItem:enableStartAtLogin];
@@ -352,13 +341,7 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 
     // read the list of items already read from defaults
     readItems = [[NSUserDefaults standardUserDefaults] arrayForKey:DEFAULTS_KEY_READ_ITEMS];
-    
-    // read notification enabled state
-    notificationsEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:DEFAULTS_KEY_NOTIFICATIONS_ENABLED];
-    
-    // read OS notification enabled state
-    osNotificationsEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:DEFAULTS_KEY_OS_NOTIFICATIONS_ENABLED];
-    
+        
     // read current hide time
     hideIconTime = [[NSUserDefaults standardUserDefaults] integerForKey:DEFAULTS_KEY_HIDE_ICON_TIME];
     if (hideIconTime <= 0) {
@@ -385,9 +368,7 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     [window setContentView:web];
     [web setFrameLoadDelegate:self];
     
-    if (NSClassFromString(@"NSUserNotificationCenter")) {
-        [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
-    }
+    [NSUserNotificationCenter defaultUserNotificationCenter].delegate = self;
 
     // kick off a login procedure
     [self doLogin];
@@ -597,18 +578,13 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     for (NSDictionary *item in [items objectEnumerator]) {
         NSString *link = [item objectForKey:@"link"];
         if (![allItems containsObject:link]) {
-            if (osNotificationsEnabled) {
-                Class NSUserNotificationClass = NSClassFromString(@"NSUserNotification");
-                if (NSUserNotificationClass) {
-                    NSUserNotification *notification = [[NSUserNotification alloc] init];
-                    notification.title = [[item objectForKey:@"site"] objectForKey:@"name"];
-                    notification.informativeText = [[item objectForKey:@"body"] stringByDecodingXMLEntities];
-                    notification.soundName = NSUserNotificationDefaultSoundName;
-                    notification.userInfo = @{@"link": item[@"link"]};
+            NSUserNotification *notification = [[NSUserNotification alloc] init];
+            notification.title = [[item objectForKey:@"site"] objectForKey:@"name"];
+            notification.informativeText = [[item objectForKey:@"body"] stringByDecodingXMLEntities];
+            notification.soundName = NSUserNotificationDefaultSoundName;
+            notification.userInfo = @{@"link": item[@"link"]};
 
-                    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
-                }
-            }
+            [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
         }
         [newAllItems addObject:link];
     }
@@ -637,13 +613,11 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     [[NSUserDefaults standardUserDefaults] setObject:readItems forKey:DEFAULTS_KEY_READ_ITEMS];
     
     // Clean up notification center based on our new allItems list.
-    if (NSClassFromString(@"NSUserNotificationCenter")) {
-        NSArray *notifications = [NSUserNotificationCenter defaultUserNotificationCenter].deliveredNotifications;
-        for (NSUserNotification *n in notifications) {
-            NSString *link = n.userInfo[@"link"];
-            if (![allItems containsObject:link] || [readItems containsObject:link]) {
-                [[NSUserNotificationCenter defaultUserNotificationCenter] removeDeliveredNotification:n];
-            }
+    NSArray *notifications = [NSUserNotificationCenter defaultUserNotificationCenter].deliveredNotifications;
+    for (NSUserNotification *n in notifications) {
+        NSString *link = n.userInfo[@"link"];
+        if (![allItems containsObject:link] || [readItems containsObject:link]) {
+            [[NSUserNotificationCenter defaultUserNotificationCenter] removeDeliveredNotification:n];
         }
     }
     
@@ -681,20 +655,6 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     NSString *link = [notification.userInfo objectForKey:@"link"];
     [self openLink:link];
     [[NSUserNotificationCenter defaultUserNotificationCenter] removeDeliveredNotification:notification];
-}
-
--(void)changeNotifications
-{
-    notificationsEnabled = !notificationsEnabled;
-    [[NSUserDefaults standardUserDefaults] setBool:notificationsEnabled forKey:DEFAULTS_KEY_NOTIFICATIONS_ENABLED];
-    [self resetMenu];
-}
-
--(void)changeOsNotifications
-{
-    osNotificationsEnabled = !osNotificationsEnabled;
-    [[NSUserDefaults standardUserDefaults] setBool:osNotificationsEnabled forKey:DEFAULTS_KEY_OS_NOTIFICATIONS_ENABLED];
-    [self resetMenu];
 }
 
 -(void)changeStartAtLogin

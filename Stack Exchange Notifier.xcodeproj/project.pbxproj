@@ -46,9 +46,6 @@
 		3735EA0616A66CB30036E6D5 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3735EA0516A66CB30036E6D5 /* Sparkle.framework */; };
 		3735EA0716A66CE70036E6D5 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3735EA0516A66CB30036E6D5 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		3735EA0916A692B10036E6D5 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 3735EA0816A692B10036E6D5 /* dsa_pub.pem */; };
-		37F54B5814FD4ECD003F4E0D /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = 37F54B5714FD4ECD003F4E0D /* Growl Registration Ticket.growlRegDict */; };
-		37F54B5A14FE9F70003F4E0D /* Growl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37F54B5914FE9F70003F4E0D /* Growl.framework */; };
-		37F54B5B14FE9F8E003F4E0D /* Growl.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 37F54B5914FE9F70003F4E0D /* Growl.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		37F9D5FE14D5F39C00DA4B70 /* NSString+html.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F9D5FD14D5F39C00DA4B70 /* NSString+html.m */; };
 		37F9D60214DA7D2300DA4B70 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 37F9D60114DA7D2300DA4B70 /* Credits.html */; };
 /* End PBXBuildFile section */
@@ -60,7 +57,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				37F54B5B14FE9F8E003F4E0D /* Growl.framework in CopyFiles */,
 				3735EA0716A66CE70036E6D5 /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -113,8 +109,6 @@
 		3735E9F616A5366E0036E6D5 /* senotifier.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = senotifier.png; sourceTree = "<group>"; };
 		3735EA0516A66CB30036E6D5 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		3735EA0816A692B10036E6D5 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
-		37F54B5714FD4ECD003F4E0D /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
-		37F54B5914FE9F70003F4E0D /* Growl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Growl.framework; sourceTree = "<group>"; };
 		37F9D5FC14D5F39C00DA4B70 /* NSString+html.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+html.h"; sourceTree = "<group>"; };
 		37F9D5FD14D5F39C00DA4B70 /* NSString+html.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+html.m"; sourceTree = "<group>"; };
 		37F9D60114DA7D2300DA4B70 /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
@@ -127,7 +121,6 @@
 			files = (
 				3735B1F214D4B57A002B0428 /* WebKit.framework in Frameworks */,
 				3735B1BD14D3CF94002B0428 /* Cocoa.framework in Frameworks */,
-				37F54B5A14FE9F70003F4E0D /* Growl.framework in Frameworks */,
 				3735EA0616A66CB30036E6D5 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -156,7 +149,6 @@
 			isa = PBXGroup;
 			children = (
 				3735EA0516A66CB30036E6D5 /* Sparkle.framework */,
-				37F54B5914FE9F70003F4E0D /* Growl.framework */,
 				3735B1F114D4B57A002B0428 /* WebKit.framework */,
 				3735B1BC14D3CF94002B0428 /* Cocoa.framework */,
 				3735B1DA14D3CF95002B0428 /* SenTestingKit.framework */,
@@ -202,7 +194,6 @@
 				3735B1C814D3CF94002B0428 /* main.m */,
 				3735B1CA14D3CF95002B0428 /* Stack Exchange Notifier-Prefix.pch */,
 				37F9D60114DA7D2300DA4B70 /* Credits.html */,
-				37F54B5714FD4ECD003F4E0D /* Growl Registration Ticket.growlRegDict */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -295,7 +286,6 @@
 				3735B1C714D3CF94002B0428 /* InfoPlist.strings in Resources */,
 				3735B1D314D3CF95002B0428 /* MainMenu.xib in Resources */,
 				37F9D60214DA7D2300DA4B70 /* Credits.html in Resources */,
-				37F54B5814FD4ECD003F4E0D /* Growl Registration Ticket.growlRegDict in Resources */,
 				37250416152F9D2100D5193A /* icon.icns in Resources */,
 				3735E9F716A5366E0036E6D5 /* senotifier_inactive_alt.png in Resources */,
 				3735E9F816A5366E0036E6D5 /* senotifier_inactive.png in Resources */,

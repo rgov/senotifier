@@ -283,9 +283,6 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
         [preferencesMenu addItem:enableOSNotifications];
     }
     
-    NSMenuItem *enableNotifications = [[NSMenuItem alloc] initWithTitle:@"Enable popup notifications (Growl)" action:@selector(changeNotifications) keyEquivalent:@""];
-    [enableNotifications setState:notificationsEnabled ? NSOnState : NSOffState];
-    [preferencesMenu addItem:enableNotifications];
     NSMenuItem *enableStartAtLogin = [[NSMenuItem alloc] initWithTitle:@"Start at login" action:@selector(changeStartAtLogin) keyEquivalent:@""];
     [enableStartAtLogin setState:willStartAtLogin() ? NSOnState : NSOffState];
     [preferencesMenu addItem:enableStartAtLogin];
@@ -378,9 +375,6 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     activeIcon = [[NSImage alloc] initByReferencingFile:[[NSBundle mainBundle]
                                   pathForResource:@"senotifier.png" 
                                   ofType:nil]];
-
-    // register ourselves with growl
-    [GrowlApplicationBridge setGrowlDelegate:self];    
 
     // create the status bar item
     statusItem = createStatusItem(inactiveIcon);
@@ -603,16 +597,6 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     for (NSDictionary *item in [items objectEnumerator]) {
         NSString *link = [item objectForKey:@"link"];
         if (![allItems containsObject:link]) {
-            if (notificationsEnabled) {
-                [GrowlApplicationBridge
-                    notifyWithTitle:[[item objectForKey:@"site"] objectForKey:@"name"]
-                    description:[[item objectForKey:@"body"] stringByDecodingXMLEntities]
-                    notificationName:@"NewInbox"
-                    iconData:[NSData alloc]
-                    priority:0
-                    isSticky:NO
-                    clickContext:[item objectForKey:@"link"]];
-            }
             if (osNotificationsEnabled) {
                 Class NSUserNotificationClass = NSClassFromString(@"NSUserNotification");
                 if (NSUserNotificationClass) {
@@ -690,22 +674,6 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     [[NSUserDefaults standardUserDefaults] setObject:readItems forKey:DEFAULTS_KEY_READ_ITEMS];
     // Update the menu since we now have one fewer unread item
     [self resetMenu];
-}
-
--(NSString *)applicationNameForGrowl
-{
-    return @"Stack Exchange Notifier";
-}
-
-// Selector called by growl when item is clicked
--(void)growlNotificationWasClicked:(id)clickContext
-{
-    NSString *link = clickContext;
-    for (unsigned int i = 0; i < [items count]; i++) {
-        if ([link compare:[[items objectAtIndex:i] objectForKey:@"link"]] == NSOrderedSame) {
-            [self openUrlFromItem:[NSNumber numberWithUnsignedInt:i]];
-        }
-    }
 }
 
 - (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification

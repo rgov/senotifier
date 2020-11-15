@@ -165,8 +165,8 @@ NSStatusItem *createStatusItem(NSImage* icon)
 {
     NSStatusBar *bar = [NSStatusBar systemStatusBar];
     NSStatusItem *item = [bar statusItemWithLength:NSVariableStatusItemLength];
-    [item setImage:icon];
-    [item setHighlightMode:YES];
+    item.button.image = icon;
+    item.button.highlighted = YES;
     return item;
 }
 

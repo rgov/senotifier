@@ -8,7 +8,6 @@
 
 #import "Stack_Exchange_NotifierAppDelegate.h"
 #import "Sparkle/Sparkle.h"
-#include "SBJson.h"
 #include "NSString+html.h"
 
 // API client key, specific to each API client
@@ -546,17 +545,20 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     // Parse the JSON response to the API request
-    id r = [[[SBJsonParser alloc] init] objectWithData:receivedData];
+    id r = [NSJSONSerialization JSONObjectWithData:receivedData options:0 error:nil];
     if (r == nil) {
         lastCheckError = @"JSON parse error";
         [self updateMenu];
         return;
     }
     
-    // Write the response to the log for debugging
-    SBJsonWriter *w = [SBJsonWriter alloc];
-    [w setHumanReadable:YES];
-    NSLog(@"json %@", [w stringWithObject:r]);
+#if DEBUG
+    // Write the prettified response to the log for debugging
+    NSData *prettyJSON = [NSJSONSerialization dataWithJSONObject:r
+                                                         options:NSJSONWritingPrettyPrinted
+                                                           error:nil];
+    NSLog(@"json %@", [NSString stringWithUTF8String:[prettyJSON bytes]]);
+#endif
     
     // If we got an error, try logging in again.
     if ([r objectForKey:@"error_id"]) {

@@ -214,38 +214,6 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     self.startAtLoginMenuItem.state =
         willStartAtLogin() ?
         NSControlStateValueOn : NSControlStateValueOff;
-    
-    NSDictionary *normalattrs = @{
-        NSFontAttributeName: [NSFont menuBarFontOfSize:0.0],
-    };
-    
-    NSMutableAttributedString *at = [[NSMutableAttributedString alloc] initWithString:@"Log in" attributes:normalattrs];
-    if (loginError != nil) {
-        NSDictionary *redattrs = @{
-            NSFontAttributeName: [NSFont menuBarFontOfSize:0.0],
-            NSForegroundColorAttributeName: [NSColor redColor],
-        };
-        [at appendAttributedString:[[NSAttributedString alloc] initWithString:@" - " attributes:redattrs]];
-        [at appendAttributedString:[[NSAttributedString alloc] initWithString:loginError attributes:redattrs]];
-    }
-    [menu itemAtIndex:1].attributedTitle = at;
-    
-    at = [[NSMutableAttributedString alloc] initWithString:@"Check Now" attributes:normalattrs];
-    if (lastCheckError != nil) {
-        NSDictionary *redattrs = @{
-            NSFontAttributeName: [NSFont menuBarFontOfSize:0.0],
-            NSForegroundColorAttributeName: [NSColor redColor],
-        };
-        [at appendAttributedString:[[NSAttributedString alloc] initWithString:@" - " attributes:redattrs]];
-        [at appendAttributedString:[[NSAttributedString alloc] initWithString:lastCheckError attributes:redattrs]];
-    } else if (lastCheck) {
-        NSDictionary *grayattrs = @{
-            NSFontAttributeName: [NSFont menuBarFontOfSize:0.0],
-            NSForegroundColorAttributeName: [NSColor grayColor],
-        };
-        [at appendAttributedString:[[NSAttributedString alloc] initWithString:timeAgo(lastCheck) attributes:grayattrs]];
-    }
-    [menu itemAtIndex:2].attributedTitle = at;
 }
 
 // Completely reset the menu, creating a new one and add all items
@@ -338,7 +306,7 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     //     scope = read_inbox (tell the user we want to read their inbox contents)
     //             no_expiry (request a token with indefinite expiration date)
     //     redirect_uri = where to send the browser when authentication succeeds
-    [[web mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://stackexchange.com/oauth/dialog?client_id=81&scope=read_inbox,no_expiry&redirect_uri=https://stackexchange.com/oauth/login_success"]]];
+    [[self.webview mainFrame] loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://stackexchange.com/oauth/dialog?client_id=81&scope=read_inbox,no_expiry&redirect_uri=https://stackexchange.com/oauth/login_success"]]];
 }
 
 // MARK: -
@@ -368,10 +336,13 @@ void setMenuItemTitle(NSMenuItem *menuitem, NSDictionary *msg, bool highlight)
     statusItem = createStatusItem(inactiveIcon);
     [self resetMenu];
 
-    // create the web view that we will use for login
-    web = [[WebView alloc] initWithFrame:self.window.frame];
-    self.window.contentView = web;
-    web.frameLoadDelegate = self;
+    // Create the WebView used for logging in
+#if __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_12
+#warning The WebView can be created in MainMenu.xib now
+#endif
+    self.webview = [[WebView alloc] initWithFrame:self.window.frame];
+    self.webview.frameLoadDelegate = self;
+    self.window.contentView = self.webview;
     
     NSUserNotificationCenter.defaultUserNotificationCenter.delegate = self;
 

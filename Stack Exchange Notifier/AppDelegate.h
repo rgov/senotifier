@@ -19,8 +19,6 @@
     NSTimer *checkInboxTimer;
     // The status bar item itself (nil if it's currently hidden)
     NSStatusItem *statusItem;
-    // Web view used to log in to the web site
-    WebView *web;
     // Access token stored from the login procedure
     NSString *access_token;
     // Array of all items that we've seen from the server
@@ -47,6 +45,8 @@
 }
 
 @property (strong) IBOutlet NSWindow *window;
+
+@property (strong) IBOutlet WebView *webview;
 
 @property (strong) IBOutlet NSMenu *menu;
 @property (weak) IBOutlet NSMenuItem *noUnreadMessagesMenuItem;

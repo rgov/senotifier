@@ -6,9 +6,9 @@
 //  Copyright 2012 Greg Hewgill. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
-#import <Foundation/Foundation.h>
 
 #import <DBGHTMLEntities/DBGHTMLEntityDecoder.h>
 

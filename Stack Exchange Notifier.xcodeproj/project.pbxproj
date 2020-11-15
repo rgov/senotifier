@@ -22,15 +22,14 @@
 
 /* Begin PBXBuildFile section */
 		2A00B0262560EB57007DD071 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A00B0252560EB57007DD071 /* Assets.xcassets */; };
-		3735B1BD14D3CF94002B0428 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3735B1BC14D3CF94002B0428 /* Cocoa.framework */; };
+		2ACEFB8A2560F9DD00FC11ED /* Pods_Stack_Exchange_Notifier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 231635F4376260399055BFB8 /* Pods_Stack_Exchange_Notifier.framework */; };
+		2ACEFB8B2560F9DD00FC11ED /* Pods_Stack_Exchange_Notifier.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 231635F4376260399055BFB8 /* Pods_Stack_Exchange_Notifier.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3735B1C714D3CF94002B0428 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3735B1C514D3CF94002B0428 /* InfoPlist.strings */; };
 		3735B1C914D3CF94002B0428 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3735B1C814D3CF94002B0428 /* main.m */; };
 		3735B1D014D3CF95002B0428 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3735B1CF14D3CF95002B0428 /* AppDelegate.m */; };
 		3735B1D314D3CF95002B0428 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3735B1D114D3CF95002B0428 /* MainMenu.xib */; };
-		3735B1F214D4B57A002B0428 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3735B1F114D4B57A002B0428 /* WebKit.framework */; };
 		3735EA0916A692B10036E6D5 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 3735EA0816A692B10036E6D5 /* dsa_pub.pem */; };
 		37F9D60214DA7D2300DA4B70 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 37F9D60114DA7D2300DA4B70 /* Credits.html */; };
-		62467FBEFCEF0D87E6343159 /* Pods_Stack_Exchange_Notifier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 231635F4376260399055BFB8 /* Pods_Stack_Exchange_Notifier.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,6 +39,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				2ACEFB8B2560F9DD00FC11ED /* Pods_Stack_Exchange_Notifier.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,16 +53,11 @@
 		2A00AFDA2560B88E007DD071 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		2A00B0252560EB57007DD071 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3735B1B814D3CF94002B0428 /* Stack Exchange Notifier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stack Exchange Notifier.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3735B1BC14D3CF94002B0428 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		3735B1BF14D3CF94002B0428 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
-		3735B1C014D3CF94002B0428 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		3735B1C114D3CF94002B0428 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3735B1C414D3CF94002B0428 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3735B1C614D3CF94002B0428 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3735B1C814D3CF94002B0428 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3735B1CE14D3CF95002B0428 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3735B1CF14D3CF95002B0428 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		3735B1F114D4B57A002B0428 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		3735EA0816A692B10036E6D5 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		37F9D60114DA7D2300DA4B70 /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 		EC2D3145AA6B5DEA66C673A1 /* Pods-Stack Exchange Notifier.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Stack Exchange Notifier.release.xcconfig"; path = "Target Support Files/Pods-Stack Exchange Notifier/Pods-Stack Exchange Notifier.release.xcconfig"; sourceTree = "<group>"; };
@@ -73,9 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3735B1F214D4B57A002B0428 /* WebKit.framework in Frameworks */,
-				3735B1BD14D3CF94002B0428 /* Cocoa.framework in Frameworks */,
-				62467FBEFCEF0D87E6343159 /* Pods_Stack_Exchange_Notifier.framework in Frameworks */,
+				2ACEFB8A2560F9DD00FC11ED /* Pods_Stack_Exchange_Notifier.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,22 +96,9 @@
 		3735B1BB14D3CF94002B0428 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3735B1F114D4B57A002B0428 /* WebKit.framework */,
-				3735B1BC14D3CF94002B0428 /* Cocoa.framework */,
-				3735B1BE14D3CF94002B0428 /* Other Frameworks */,
 				231635F4376260399055BFB8 /* Pods_Stack_Exchange_Notifier.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		3735B1BE14D3CF94002B0428 /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				3735B1BF14D3CF94002B0428 /* AppKit.framework */,
-				3735B1C014D3CF94002B0428 /* CoreData.framework */,
-				3735B1C114D3CF94002B0428 /* Foundation.framework */,
-			);
-			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
 		3735B1C214D3CF94002B0428 /* Stack Exchange Notifier */ = {
@@ -408,6 +388,7 @@
 			baseConfigurationReference = 15F0CA009232C3565938D142 /* Pods-Stack Exchange Notifier.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -416,6 +397,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				INFOPLIST_FILE = "Stack Exchange Notifier/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hewgill.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -429,6 +411,7 @@
 			baseConfigurationReference = EC2D3145AA6B5DEA66C673A1 /* Pods-Stack Exchange Notifier.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "-";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -437,6 +420,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				INFOPLIST_FILE = "Stack Exchange Notifier/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hewgill.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";

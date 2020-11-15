@@ -6,8 +6,12 @@
 //  Copyright 2012 Greg Hewgill. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import <CoreServices/CoreServices.h>
+
 #import <Sparkle/Sparkle.h>
+
+#import "AppDelegate.h"
+
 
 
 // API client key, specific to each API client
